@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Nav */
+/* nav a {
+    @apply no-underline underline-offset-4; 
+  }
+  
+nav a:hover {
+    @apply underline underline-offset-4;
+  } */

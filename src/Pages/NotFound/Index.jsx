@@ -1,12 +1,14 @@
+import { Layout } from "../../Components/Layout"
+
 function NotFound() {
 
 
   return (
-    <div >
+    <Layout >
     
-    We didnt find your page 
+    <p className='text-red-500'>We didnt find your page</p> 
     
-    </div>
+    </Layout>
   )
 }
 
