@@ -1,11 +1,12 @@
-import { useRoutes, BrowserRouter } from "react-router-dom";
-import Home  from "../Home/Index";
-import MyAccount from "../MyAccount/Index";
-import MyOrder from "../MyOrder/Index";
-import MyOrders from "../MyOrders/Index";
-import SignIn from "../SignIn/Index";
-import NotFound from "../NotFound/Index";
-import  { Navbar } from "../../Components/Navbar";
+import { useRoutes, BrowserRouter } from 'react-router-dom';
+import { CartProvider } from '../../Context'
+import Home  from '../Home/Index';
+import MyAccount from '../MyAccount/Index';
+import MyOrder from '../MyOrder/Index';
+import MyOrders from '../MyOrders/Index';
+import SignIn from '../SignIn/Index';
+import NotFound from '../NotFound/Index';
+import  { Navbar } from '../../Components/Navbar';
 
 import './App.css'
 
@@ -23,13 +24,18 @@ const AppRoutes = () => {
 
 const App = () => {
 
-    return (
+    return (    
        
-       <BrowserRouter>
+        < CartProvider >
+
+            <BrowserRouter>
+                    
+                <Navbar />
+                <AppRoutes />
+
+            </BrowserRouter>
             
-            <Navbar />
-            <AppRoutes />
-       </BrowserRouter>
+       </CartProvider>
 
     )
 }

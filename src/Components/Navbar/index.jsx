@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { NavItem } from "../NavItem";
+import { NavLink } from 'react-router-dom';
+import { NavItem } from '../NavItem';
 
 const Navbar = () => {
     
