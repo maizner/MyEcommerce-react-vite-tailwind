@@ -1,5 +1,5 @@
 import { useRoutes, BrowserRouter } from 'react-router-dom';
-import { CartProvider, CartContext  } from '../../Context'
+import { CartProvider  } from '../../Context'
 import{ Home } from '../Home/Index';
 import MyAccount from '../MyAccount/Index';
 import MyOrder from '../MyOrder/Index';
