@@ -1,18 +1,14 @@
-import { useState, useEffect} from 'react';
+import React from 'react';
+import { CartContext } from '../../Context';
 import { Layout } from '../../Components/Layout';
-import {Card } from '../../Components/Card';
+import { Card } from '../../Components/Card';
 
 function Home() {
 
-    const [items, setItems] = useState(null)
-    useEffect(()=> {
-        fetch('https://fakestoreapi.com/products')
-        // fetch(' https://api.escuelajs.co/api/v1/products')
-        .then(response => response.json())
-        // .then(response => console.log(response.json()))
-         .then(data => setItems(data))
-        
-    }, [])
+ 
+    const { items } = React.useContext(CartContext); 
+
+    
 
     return (
         <Layout >
@@ -22,8 +18,7 @@ function Home() {
         {
             items?.map(item => {
                 return < Card key={item.id} data={item} />
-                
-                
+
             })
         }
         </div>
@@ -33,4 +28,4 @@ function Home() {
     )
 }
 
-export default  Home
+export {Home};

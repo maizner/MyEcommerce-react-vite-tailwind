@@ -1,6 +1,6 @@
 import { useRoutes, BrowserRouter } from 'react-router-dom';
-import { CartProvider } from '../../Context'
-import Home  from '../Home/Index';
+import { CartProvider, CartContext  } from '../../Context'
+import{ Home } from '../Home/Index';
 import MyAccount from '../MyAccount/Index';
 import MyOrder from '../MyOrder/Index';
 import MyOrders from '../MyOrders/Index';
@@ -30,11 +30,11 @@ const App = () => {
 
             <BrowserRouter>
                     
-                <Navbar />
+                <Navbar />  
                 <AppRoutes />
 
             </BrowserRouter>
-            
+
        </CartProvider>
 
     )
