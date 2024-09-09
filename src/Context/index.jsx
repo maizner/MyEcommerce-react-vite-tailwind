@@ -5,10 +5,16 @@ import PropTypes from 'prop-types';
 const CartContext = createContext();
 
 const CartProvider = ({children}) => {  
-    //Estados a compartir
+    //States factory
     const [items, setItems] = useState(null)
     const [counter, setCounter] = useState(0)
-    // console.log('COUNTER: '+ counter)
+    const [isVisibleSidebar, setIsVisibleSidebar] = useState(false)
+    const openSidebar = () => 
+        setIsVisibleSidebar(true);
+    const closeSidebar = () => 
+        setIsVisibleSidebar(false);
+    
+    const [isProductSelected, setIsProductSelected] = useState({})
 
 
     useEffect(()=> {
@@ -21,6 +27,13 @@ const CartProvider = ({children}) => {
         
     }, [])
 
+    useEffect( () => {
+        if (isProductSelected && Object.keys(isProductSelected).length > 0){
+            openSidebar();
+
+        }
+
+    }, [isProductSelected])
     
 
     return (
@@ -29,7 +42,12 @@ const CartProvider = ({children}) => {
             items, 
             setItems,
             counter, 
-            setCounter
+            setCounter,
+            isVisibleSidebar, 
+            openSidebar,
+            closeSidebar,
+            isProductSelected,
+            setIsProductSelected
         }}>
 
             {children}
@@ -40,9 +58,9 @@ const CartProvider = ({children}) => {
 
 }
 
-// Validación de PropTypes
+//prop validation
 CartProvider.propTypes = {
-    children: PropTypes.node.isRequired, // Aquí se define que `children` es requerido y de tipo nodo
+    children: PropTypes.node.isRequired, 
 };
 
 export {CartContext, CartProvider};

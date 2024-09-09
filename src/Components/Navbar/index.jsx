@@ -1,4 +1,6 @@
+import {ShoppingBagIcon } from '@heroicons/react/24/solid';
 import { useContext} from 'react'
+import logo from './logo-brand.svg';
 import { NavLink } from 'react-router-dom';
 import { CartContext } from '../../Context';
 import { NavItem } from '../NavItem';
@@ -13,7 +15,9 @@ const Navbar = () => {
             <ul className='flex flex-row items-center gap-3'>
                 
                 <li className='font-semibold text-lg' >
-                    <NavLink  to='/'> LogoHome </NavLink>
+                    <NavLink  to='/'> 
+                        <img src={logo} alt="Logo" width="120" height="auto" />
+                    </NavLink>
                 </li>
                 <NavItem to='/all'> All </NavItem>
                 <NavItem to='/clothes'> Clothes </NavItem>
@@ -30,8 +34,9 @@ const Navbar = () => {
                 <NavItem to='/my-orders'> My Orders </NavItem>
                 <NavItem to='/my-account'> My Account </NavItem>
                 <NavItem to='/sign-in'> Sign In </NavItem>
-                <li>
-                    🛒 {counter}
+                <li className='flex flex-row items-center justify-center gap-1 relative'>
+                    <ShoppingBagIcon className="size-5 text-black"/> 
+                    <p className="font-semibold text-xs text-black absolute left-4 bottom-[-7px] bg-gray-100 z-10 rounded-full flex items-center justify-center w-5 h-5">{counter}</p>
                 </li>
              
 

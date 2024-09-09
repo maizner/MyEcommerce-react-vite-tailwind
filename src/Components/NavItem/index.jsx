@@ -18,6 +18,7 @@ const NavItem = ({ to, children, classitem}) => {
     
 }
 
+//prop validation
 NavItem.propTypes = {
     to: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
