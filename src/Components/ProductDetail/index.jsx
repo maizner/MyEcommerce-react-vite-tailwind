@@ -1,21 +1,16 @@
 import { useContext } from 'react';
 import { CartContext } from '../../Context';
 
-
-
-
 const ProductDetail = () => {
 
-         //consuming context
-         const { 
-            isProductSelected,
-            addProductToCart
-         } = useContext(CartContext); 
+    //consuming context
+    const { selectedProduct,addProductToCart } = useContext(CartContext); 
+
         
     
        
-         //testructuring data 
-        const { description, image, title, price } = isProductSelected;
+    //destructuring data 
+    const { description, image, title, price } = selectedProduct;
         
 
         
@@ -23,7 +18,7 @@ const ProductDetail = () => {
 
         <>
             <div className='flex justify-between items-center m-2'>
-                <h2 className="text-lg font-medium p-2 ">Details</h2>
+                <h2 className="text-lg font-medium p-2 ">Product Details</h2>
             </div>
             <div className='px-6 pt-2 pb-4 '> 
                 <div className='flex flex-col items-start  '>
@@ -33,7 +28,7 @@ const ProductDetail = () => {
                             <img className='w-full h-auto p-2' src={image} alt={title} />
                         </figure>
                         
-                        <div className='flex flex-row gap-2 cursor-pointer'  onClick={() =>{addProductToCart(isProductSelected), console.log('prodDetailAddedToCart: ', isProductSelected)} }>
+                        <div className='flex flex-row gap-2 cursor-pointer'  onClick={() =>{addProductToCart(selectedProduct), console.log('prodDetailAddedToCart: ', selectedProduct)} }>
                             <p>agreg</p>
                             
                         </div>

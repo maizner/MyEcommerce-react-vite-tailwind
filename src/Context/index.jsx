@@ -6,15 +6,32 @@ const CartContext = createContext();
 
 const CartProvider = ({children}) => {  
     //States factory
-    const [items, setItems] = useState(null)
-    const [counter, setCounter] = useState(0)
+    const [items, setItems] = useState(null);
+    const [cartItemCount, setCartItemCount] = useState(0);
+
+    const [isVisibleDetail, setIsVisibleDetail] = useState(false);
+    const [isVisibleCart, setIsVisibleCart] = useState(false);
+
+    const [selectedProduct, setSelectedProduct] = useState({})
+    const [cartProducts, setCartProducts] = useState([])
+
+    const openDetail = () => {
+        setIsVisibleDetail(true);
+        setIsVisibleCart(false);
+    };
+
     
-    const [isVisibleDetail, setIsVisibleDetail] = useState(false)
-    const openDetail = () => setIsVisibleDetail(true);
-    const closeDetail = () => setIsVisibleDetail(false);
-    
-    const [isProductSelected, setIsProductSelected] = useState({})
-    const [shoppingCart, setShoppingCart] = useState([])
+    const openCart = () => {
+        setIsVisibleCart(true);
+        setIsVisibleDetail(false);
+
+    };
+
+    const closeSidebar = () => {
+        setIsVisibleDetail(false);
+        setIsVisibleCart(false);
+        setSelectedProduct({});
+    };
 
 
     useEffect(()=> {
@@ -29,33 +46,50 @@ const CartProvider = ({children}) => {
 
     // Abrir el sidebar solo cuando hay un producto seleccionado
     useEffect( () => {
-
-        if (isProductSelected && Object.keys(isProductSelected).length > 0){
+        if (selectedProduct && Object.keys(selectedProduct).length > 0){
             openDetail();
         }
-        
-    }, [isProductSelected])
+    }, [selectedProduct])
 
-    const addProductToCart = (dat) => {
-        setCounter(counter + 1 );
-        setShoppingCart([...shoppingCart, dat]);
+    useEffect( () => {
+        if (cartProducts && cartProducts.length > 0){
+            openCart();
+        }
+    }, [cartProducts])
+
+
+    const addProductToCart = (product) => {
+        setCartItemCount(prev => prev + 1 );
+        setCartProducts(prev =>[...prev, product]);
     }
-    
+
+    const handleProductSelection = (product) => {
+        setSelectedProduct({}); 
+        setTimeout(() => {setSelectedProduct(product); }, 0); 
+    };
+
+    const removeProductFromCart = (productId) => {
+         setCartProducts(prev => prev.filter(p => p.id !== productId));
+         setCartItemCount(prev => prev - 1);
+    };
 
     return (
 
         <CartContext.Provider value={{
             items, 
             setItems,
-            counter, 
-            setCounter,
+            cartItemCount, 
+            setCartItemCount,
             isVisibleDetail, 
             openDetail,
-            closeDetail,
-            isProductSelected,
-            setIsProductSelected,
-            shoppingCart,
-            setShoppingCart,
+            selectedProduct,
+            handleProductSelection,
+            isVisibleCart, 
+            openCart,
+            closeSidebar,
+            removeProductFromCart,
+            cartProducts,
+            setCartProducts,
             addProductToCart
         }}>
 

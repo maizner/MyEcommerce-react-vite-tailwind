@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { CartContext } from '../../Context';
 import { Layout } from '../../Components/Layout';
 import { Card } from '../../Components/Card';
-import { Sidebar } from '../../Components/Sidebar';
 
 function Home() {
 
@@ -20,7 +19,7 @@ function Home() {
                 }
             </div>
 
-            <Sidebar />
+            
         
         </Layout>
     )

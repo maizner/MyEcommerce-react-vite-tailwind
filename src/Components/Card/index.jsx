@@ -1,16 +1,13 @@
 import {PlusIcon } from '@heroicons/react/24/solid';
 import {useContext} from 'react';
 import { CartContext } from '../../Context';
+// import { DetailContext } from '../../Context/DetailContext';
 
 const Card = (product) => {
    
     //consuming context
-    const { 
-        setIsProductSelected,
-        addProductToCart
-        
-        
-    } = useContext(CartContext); 
+    const { addProductToCart, handleProductSelection} = useContext(CartContext); 
+    // const { handleProductSelection } = useContext(DetailContext); 
 
     //testructuring data 
     const { category, image, title, price } = product.data;
@@ -22,8 +19,8 @@ const Card = (product) => {
     return (
 
         <div 
-        className='bg-white cursor-pointer w-full h-60 overflow-hidden  scale-100 hover:scale-105 transform transition-transform duration-300'
-        onClick={() => setIsProductSelected(product.data)}
+        className='card bg-white cursor-pointer w-full h-60 overflow-hidden  scale-100 hover:scale-105 transform transition-transform duration-300'
+        onClick={() => handleProductSelection(product.data)}
 
         > 
             <figure className='relative mb-2 w-full h-4/5 '>
@@ -39,7 +36,7 @@ const Card = (product) => {
                     />
                 </div>
 
-                <div className='absolute right-0 top-0 flex justify-center items-center bg-white/60  w-6 h-6 rounded-full m-2 p-1 hover:bg-slate-200 '
+                <div className='add-cart-btn absolute right-0 top-0 flex justify-center items-center bg-white/60  w-6 h-6 rounded-full m-2 p-1 hover:bg-slate-200 '
                 onClick={(e) =>{addProductToCart(product.data), e.stopPropagation()} }
                 >
                     <PlusIcon />

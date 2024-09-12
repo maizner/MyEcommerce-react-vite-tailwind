@@ -6,7 +6,7 @@ import { CartContext } from '../../Context';
 import { NavItem } from '../NavItem';
 
 const Navbar = () => {
-    const { counter } = useContext(CartContext); 
+    const { cartItemCount } = useContext(CartContext); 
 
     return(
 
@@ -36,7 +36,7 @@ const Navbar = () => {
                 <NavItem to='/sign-in'> Sign In </NavItem>
                 <li className='flex flex-row items-center justify-center gap-1 relative'>
                     <ShoppingBagIcon className="size-5 text-black"/> 
-                    <p className="font-semibold text-xs text-black absolute left-4 bottom-[-7px] bg-gray-100 z-10 rounded-full flex items-center justify-center w-5 h-5">{counter}</p>
+                    <p className="font-semibold text-xs text-black absolute left-4 bottom-[-7px] bg-gray-100 z-10 rounded-full flex items-center justify-center w-5 h-5">{cartItemCount}</p>
                 </li>
              
 
