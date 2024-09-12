@@ -6,10 +6,7 @@ import { Sidebar } from '../../Components/Sidebar';
 
 function Home() {
 
- 
     const { items } = useContext(CartContext); 
-
-    
 
     return (
         <Layout >
@@ -19,10 +16,10 @@ function Home() {
                 {
                     items?.map(item => {
                         return < Card key={item.id} data={item} />
-
                     })
                 }
             </div>
+
             <Sidebar />
         
         </Layout>

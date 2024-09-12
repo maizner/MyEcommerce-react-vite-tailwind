@@ -6,15 +6,16 @@ const Card = (product) => {
    
     //consuming context
     const { 
-        counter, 
-        setCounter, 
-        setIsProductSelected
+        setIsProductSelected,
+        addProductToCart
+        
         
     } = useContext(CartContext); 
 
     //testructuring data 
     const { category, image, title, price } = product.data;
 
+  
   
 
 
@@ -38,19 +39,18 @@ const Card = (product) => {
                     />
                 </div>
 
-                <div className='absolute right-0 top-0 flex justify-center items-center bg-white/60  w-6 h-6 rounded-full m-2 p-1'
-                onClick={() => setCounter(counter + 1 )}
+                <div className='absolute right-0 top-0 flex justify-center items-center bg-white/60  w-6 h-6 rounded-full m-2 p-1 hover:bg-slate-200 '
+                onClick={(e) =>{addProductToCart(product.data), e.stopPropagation()} }
                 >
-
-                    <PlusIcon  />
+                    <PlusIcon />
                 </div>
 
-                <span className='absolute right-0 bottom-[-25px] z-10 bg-white font-semibold text-black text-lg m-2 py-[5px] px-3'>
-                    <span className='mr-[2px] text-[12px]'>Ars</span>{price}
+                <span className='absolute right-0 bottom-[-18px] z-10 bg-white font-semibold text-black text-lg m-2 py-[5px] px-2 leading-3 rounded-full'>
+                    <span className='mr-[2px] text-[12px] leading-3'>$</span>{price}
                 </span>
 
-                <p className='py-2 px-4 truncate'>
-                    <span className='text-xs font-light'>{title}</span>
+                <p className='py-1 px-4 truncate'>
+                    <span className='text-xs font-normal '>{title}</span>
                 </p>
             </figure>
         </div>

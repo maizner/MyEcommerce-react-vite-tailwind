@@ -10,3 +10,9 @@
 nav a:hover {
     @apply underline underline-offset-4;
   } */
+
+  @layer utilities {
+    .h-calc {
+      height: calc(100vh - 68px);
+    }
+  }

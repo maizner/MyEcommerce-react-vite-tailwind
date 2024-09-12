@@ -7,6 +7,7 @@ import MyOrders from '../MyOrders/Index';
 import SignIn from '../SignIn/Index';
 import NotFound from '../NotFound/Index';
 import  { Navbar } from '../../Components/Navbar';
+import { Sidebar } from '../../Components/Sidebar';
 
 import './App.css'
 
@@ -32,7 +33,8 @@ const App = () => {
                     
                 <Navbar />  
                 <AppRoutes />
-
+                <Sidebar />
+                
             </BrowserRouter>
 
        </CartProvider>

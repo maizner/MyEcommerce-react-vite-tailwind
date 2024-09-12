@@ -8,13 +8,13 @@ const CartProvider = ({children}) => {
     //States factory
     const [items, setItems] = useState(null)
     const [counter, setCounter] = useState(0)
-    const [isVisibleSidebar, setIsVisibleSidebar] = useState(false)
-    const openSidebar = () => 
-        setIsVisibleSidebar(true);
-    const closeSidebar = () => 
-        setIsVisibleSidebar(false);
+    
+    const [isVisibleDetail, setIsVisibleDetail] = useState(false)
+    const openDetail = () => setIsVisibleDetail(true);
+    const closeDetail = () => setIsVisibleDetail(false);
     
     const [isProductSelected, setIsProductSelected] = useState({})
+    const [shoppingCart, setShoppingCart] = useState([])
 
 
     useEffect(()=> {
@@ -27,13 +27,19 @@ const CartProvider = ({children}) => {
         
     }, [])
 
+    // Abrir el sidebar solo cuando hay un producto seleccionado
     useEffect( () => {
+
         if (isProductSelected && Object.keys(isProductSelected).length > 0){
-            openSidebar();
-
+            openDetail();
         }
-
+        
     }, [isProductSelected])
+
+    const addProductToCart = (dat) => {
+        setCounter(counter + 1 );
+        setShoppingCart([...shoppingCart, dat]);
+    }
     
 
     return (
@@ -43,11 +49,14 @@ const CartProvider = ({children}) => {
             setItems,
             counter, 
             setCounter,
-            isVisibleSidebar, 
-            openSidebar,
-            closeSidebar,
+            isVisibleDetail, 
+            openDetail,
+            closeDetail,
             isProductSelected,
-            setIsProductSelected
+            setIsProductSelected,
+            shoppingCart,
+            setShoppingCart,
+            addProductToCart
         }}>
 
             {children}
