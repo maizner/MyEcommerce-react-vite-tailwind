@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 
 const CartContext = createContext();
 
-const CartProvider = ({children}) => {  
+const CartProvider = ({children}) => { 
+     
     //States factory
     const [items, setItems] = useState(null);
-    const [cartItemCount, setCartItemCount] = useState(0);
+    const [cartItemsCount, setCartItemsCount] = useState(0);
+    const [ItemIDCount, setItemIDCount] = useState(1);
 
     const [isVisibleDetail, setIsVisibleDetail] = useState(false);
     const [isVisibleCart, setIsVisibleCart] = useState(false);
@@ -57,29 +59,69 @@ const CartProvider = ({children}) => {
         }
     }, [cartProducts])
 
+    useEffect(() => {
+        setCartItemsCount(cartProducts.reduce((total, product) => total + product.quantity, 0));
+    }, [cartProducts]);
 
+   
+    // Añadir producto o actualizar cantidad si ya está en el carrito
     const addProductToCart = (product) => {
-        setCartItemCount(prev => prev + 1 );
-        setCartProducts(prev =>[...prev, product]);
+        setCartProducts((prevCart) => {
+          const existingProduct = prevCart.find((item) => item.id === product.id);
+      
+          if (existingProduct) {
+            return prevCart.map((item) =>
+              item.id === product.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            );
+          } else {
+            return [...prevCart, { ...product, quantity: 1 }];
+          }
+        });
+      };
+    
+
+     // Decrementar cantidad del producto
+    const decrementProductQuantity = (productId) => {
+
+        setCartProducts(prev => 
+            prev.map( p => 
+                p.id === productId && p.quantity > 1 ? {...p, quantity: p.quantity - 1}:p
+            ).filter(p => p.quantity > 0));// Elimina productos con cantidad 0
+
     }
+
+    const removeProductFromCart = (productId) => {
+        setCartProducts((prevCart) => {
+        //   const existingProduct = prevCart.find((item) => item.id === productId);
+      
+          
+            return prevCart.filter((item) => item.id !== productId);
+          
+        });
+      };
+
+//     const removeProductFromCart = (productId) => {
+//         setCartProducts(prev => prev.filter(p => p.id !== productId));
+//         setCartItemsCount(prev => prev - 1);
+
+//    };
 
     const handleProductSelection = (product) => {
         setSelectedProduct({}); 
         setTimeout(() => {setSelectedProduct(product); }, 0); 
     };
 
-    const removeProductFromCart = (productId) => {
-         setCartProducts(prev => prev.filter(p => p.id !== productId));
-         setCartItemCount(prev => prev - 1);
-    };
+    
 
     return (
 
         <CartContext.Provider value={{
             items, 
             setItems,
-            cartItemCount, 
-            setCartItemCount,
+            cartItemsCount, 
+            setCartItemsCount,
             isVisibleDetail, 
             openDetail,
             selectedProduct,
@@ -90,7 +132,10 @@ const CartProvider = ({children}) => {
             removeProductFromCart,
             cartProducts,
             setCartProducts,
-            addProductToCart
+            addProductToCart,
+            decrementProductQuantity,
+            ItemIDCount,
+            setItemIDCount
         }}>
 
             {children}

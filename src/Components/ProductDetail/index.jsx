@@ -1,17 +1,40 @@
 import { useContext } from 'react';
 import { CartContext } from '../../Context';
+import { PlusIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+
 
 const ProductDetail = () => {
 
     //consuming context
-    const { selectedProduct,addProductToCart } = useContext(CartContext); 
+    const { selectedProduct,addProductToCart, cartProducts, openCart } = useContext(CartContext); 
 
-        
-    
-       
     //destructuring data 
-    const { description, image, title, price } = selectedProduct;
-        
+    const { id, description, image, title, price } = selectedProduct;
+     
+
+    const renderCartButton = (id) => {
+        const isInCart = cartProducts.filter( prod => prod.id === id).length > 0;
+
+        if (isInCart ){
+
+            return(
+
+                <button className='flex flex-row items-center justify-center bg-green-300 hover:bg-green-500 text-xs text-black font-semibold gap-2 cursor-pointer  m-2 px-3 py-2 rounded-full transition-colors duration-300 ease-in-out'
+                onClick={() => openCart()}>
+                See < ShoppingCartIcon className='w-4 h-4'/>
+                </button>
+            );
+          
+        } else {
+            return(
+
+                <button className='flex flex-row items-center justify-center bg-green-300 hover:bg-green-500 text-xs text-black font-semibold gap-2 cursor-pointer m-2 mr-0 px-3 py-2 rounded-full  transition-colors duration-300 ease-in-out'
+                onClick={() =>addProductToCart(selectedProduct) }>
+                  Add  <PlusIcon className='w-3 h-3'/> 
+                </button>
+            );
+        }
+    }
 
         
     return(
@@ -28,9 +51,10 @@ const ProductDetail = () => {
                             <img className='w-full h-auto p-2' src={image} alt={title} />
                         </figure>
                         
-                        <div className='flex flex-row gap-2 cursor-pointer'  onClick={() =>{addProductToCart(selectedProduct), console.log('prodDetailAddedToCart: ', selectedProduct)} }>
-                            <p>agreg</p>
+                        <div className='flex flex-row items-start justify-center'>
+                          
                             
+                            {renderCartButton(id)}
                         </div>
                     </div>
 

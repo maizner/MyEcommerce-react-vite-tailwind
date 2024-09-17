@@ -1,17 +1,43 @@
-import {PlusIcon } from '@heroicons/react/24/solid';
 import {useContext} from 'react';
 import { CartContext } from '../../Context';
-// import { DetailContext } from '../../Context/DetailContext';
+import {PlusIcon } from '@heroicons/react/24/solid';
+import {ShoppingCartIcon } from '@heroicons/react/24/outline';
 
-const Card = (product) => {
+const ProductCard = (product) => {
    
     //consuming context
-    const { addProductToCart, handleProductSelection} = useContext(CartContext); 
-    // const { handleProductSelection } = useContext(DetailContext); 
+    const { addProductToCart, handleProductSelection, cartProducts, openCart } = useContext(CartContext); 
+
 
     //testructuring data 
     const { category, image, title, price } = product.data;
 
+    const renderIcon = (id) => {
+        const isInCart = cartProducts.some(prod => prod.id === id);
+
+        if (!isInCart){
+            return(
+
+                <div className='add-cart-btn absolute right-0 top-0 flex justify-center items-center bg-white/60 w-6 h-6 rounded-full m-2 p-1 hover:bg-slate-200 transition-colors duration-300 ease-in-out'
+                onClick={(e) =>{addProductToCart(product.data), e.stopPropagation()} }
+                >
+                    <PlusIcon className='w-6 h-6 text-black' />
+                </div>
+            );
+        }else {
+            return(
+
+                <div className='add-cart-btn absolute right-0 top-0 flex justify-center items-center bg-green-500 w-6 h-6 rounded-full m-2 p-1 hover:bg-green-600  transition-colors duration-300 ease-in-out'
+                    onClick={(e) =>{openCart(), e.stopPropagation()} }
+                    >
+                        <ShoppingCartIcon className='w-6 h-6 text-white'/>
+                    </div>
+
+
+
+            );
+        }
+    }
   
   
 
@@ -36,11 +62,9 @@ const Card = (product) => {
                     />
                 </div>
 
-                <div className='add-cart-btn absolute right-0 top-0 flex justify-center items-center bg-white/60  w-6 h-6 rounded-full m-2 p-1 hover:bg-slate-200 '
-                onClick={(e) =>{addProductToCart(product.data), e.stopPropagation()} }
-                >
-                    <PlusIcon />
-                </div>
+               
+                
+                {renderIcon(product.data.id)}
 
                 <span className='absolute right-0 bottom-[-18px] z-10 bg-white font-semibold text-black text-lg m-2 py-[5px] px-2 leading-3 rounded-full'>
                     <span className='mr-[2px] text-[12px] leading-3'>$</span>{price}
@@ -54,4 +78,8 @@ const Card = (product) => {
     );
 }
 
-export { Card }; 
+
+
+
+
+export { ProductCard}; 
