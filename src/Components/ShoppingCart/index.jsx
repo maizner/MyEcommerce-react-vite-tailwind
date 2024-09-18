@@ -73,7 +73,7 @@ const ShoppingCart = () => {
             <div className='fixed bottom-0 w-full max-w-[358px] border-t-2 bg-white p-4 py-3 '>
                 <p className='flex justify-between items-center pb-3'>
                     <span className='text-md font-medium text-black'>Total: </span>
-                    <span className='text-lg font-medium text-black'> $ {totalPrice(cartProducts)}</span>
+                    <span className='text-lg font-medium text-black'> $ {parseFloat(totalPrice(cartProducts).toFixed(2))}</span>
                 </p>
                
                 <Link to='/my-orders/last'>

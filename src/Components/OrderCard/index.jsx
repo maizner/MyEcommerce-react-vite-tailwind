@@ -44,7 +44,7 @@ const OrderCard = ({ id, image, title, price, quantity, isInSidebar}) => {
                 )}
 
               </div>
-              <p className='text-sm font-medium'>${(price * quantity).toFixed(2)}</p>
+              <p className='text-sm font-medium'>${parseFloat(price * quantity).toFixed(2)}</p>
               {isInSidebar && (
                 <TrashIcon className='h-5 w-5 text-black cursor-pointer hover:text-red-500 transition-background duration-300 ease-in-out' 
                 onClick={() => removeProductFromCart(id)} />
