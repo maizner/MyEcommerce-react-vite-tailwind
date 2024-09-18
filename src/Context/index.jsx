@@ -16,6 +16,7 @@ const CartProvider = ({children}) => {
 
     const [selectedProduct, setSelectedProduct] = useState({})
     const [cartProducts, setCartProducts] = useState([])
+    const [order, setOrder] = useState([])
 
     const openDetail = () => {
         setIsVisibleDetail(true);
@@ -59,54 +60,67 @@ const CartProvider = ({children}) => {
         }
     }, [cartProducts])
 
-    useEffect(() => {
-        setCartItemsCount(cartProducts.reduce((total, product) => total + product.quantity, 0));
-    }, [cartProducts]);
+   // Hook useEffect para actualizar el conteo total de productos en el carrito cuando cambie el carrito de productos
+useEffect(() => {
+    // Calcula el total de productos en el carrito y actualiza el estado correspondiente
+    setCartItemsCount(
+        // Reduce el array de productos en el carrito a un solo valor: el conteo total de productos
+        cartProducts.reduce((total, product) =>
+            // Suma la cantidad del producto actual al total acumulado
+            total + product.quantity,
+            // Valor inicial del total acumulado es 0
+            0
+        )
+    );
+    // Dependencia: el efecto se ejecutará cada vez que cambie el estado de cartProducts
+}, [cartProducts]);
+
 
    
-    // Añadir producto o actualizar cantidad si ya está en el carrito
+    // Función para añadir un producto al carrito o actualizar la cantidad si el producto ya está en el carrito
     const addProductToCart = (product) => {
+        // Actualiza el estado de los productos en el carrito
         setCartProducts((prevCart) => {
-          const existingProduct = prevCart.find((item) => item.id === product.id);
-      
-          if (existingProduct) {
-            return prevCart.map((item) =>
-              item.id === product.id
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            );
-          } else {
-            return [...prevCart, { ...product, quantity: 1 }];
-          }
+            // Busca si el producto ya existe en el carrito
+            const existingProduct = prevCart.find((item) => item.id === product.id);
+
+            // Si el producto ya está en el carrito
+            if (existingProduct) {
+                // Mapea el carrito anterior a un nuevo carrito
+                return prevCart.map((item) =>
+                    // Si el ID del item es el mismo que el del producto añadido
+                    item.id === product.id
+                        // Actualiza la cantidad del producto existente en el carrito
+                        ? { ...item, quantity: item.quantity + 1 }
+                        // De lo contrario, mantiene el item tal como está
+                        : item
+                );
+            } else {
+                // Si el producto no está en el carrito, lo añade con una cantidad inicial de 1
+                return [...prevCart, { ...product, quantity: 1 }];
+            }
         });
-      };
+    };
+
     
 
      // Decrementar cantidad del producto
     const decrementProductQuantity = (productId) => {
 
-        setCartProducts(prev => 
-            prev.map( p => 
+        setCartProducts(prevCart => 
+            prevCart.map( p => 
                 p.id === productId && p.quantity > 1 ? {...p, quantity: p.quantity - 1}:p
-            ).filter(p => p.quantity > 0));// Elimina productos con cantidad 0
+            ).filter(p => p.quantity > 0)
+        );// Elimina productos con cantidad 0
 
     }
 
     const removeProductFromCart = (productId) => {
         setCartProducts((prevCart) => {
-        //   const existingProduct = prevCart.find((item) => item.id === productId);
-      
-          
             return prevCart.filter((item) => item.id !== productId);
-          
         });
       };
 
-//     const removeProductFromCart = (productId) => {
-//         setCartProducts(prev => prev.filter(p => p.id !== productId));
-//         setCartItemsCount(prev => prev - 1);
-
-//    };
 
     const handleProductSelection = (product) => {
         setSelectedProduct({}); 
@@ -134,8 +148,8 @@ const CartProvider = ({children}) => {
             setCartProducts,
             addProductToCart,
             decrementProductQuantity,
-            ItemIDCount,
-            setItemIDCount
+            ItemIDCount, setItemIDCount,
+            order, setOrder
         }}>
 
             {children}

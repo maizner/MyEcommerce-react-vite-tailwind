@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { CartContext } from '../../Context';
-import { PlusIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, ShoppingCartIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 
 const ProductDetail = () => {
@@ -21,7 +21,7 @@ const ProductDetail = () => {
 
                 <button className='flex flex-row items-center justify-center bg-green-300 hover:bg-green-500 text-xs text-black font-semibold gap-2 cursor-pointer  m-2 px-3 py-2 rounded-full transition-colors duration-300 ease-in-out'
                 onClick={() => openCart()}>
-                See < ShoppingCartIcon className='w-4 h-4'/>
+               <ChevronRightIcon className='w-3 h-3'/> Go < ShoppingCartIcon className='w-4 h-4'/>
                 </button>
             );
           
@@ -30,7 +30,7 @@ const ProductDetail = () => {
 
                 <button className='flex flex-row items-center justify-center bg-green-300 hover:bg-green-500 text-xs text-black font-semibold gap-2 cursor-pointer m-2 mr-0 px-3 py-2 rounded-full  transition-colors duration-300 ease-in-out'
                 onClick={() =>addProductToCart(selectedProduct) }>
-                  Add  <PlusIcon className='w-3 h-3'/> 
+                  <PlusIcon className='w-3 h-3'/>Add Product  < ShoppingCartIcon className='w-4 h-4'/>
                 </button>
             );
         }

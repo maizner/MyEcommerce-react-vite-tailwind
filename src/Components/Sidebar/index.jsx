@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CartContext } from '../../Context';
 import { ProductDetail } from '../ProductDetail';
-import { ProductCart } from '../ProductCart';
+import { ShoppingCart } from '../ShoppingCart';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 
@@ -18,7 +18,7 @@ const Sidebar = () => {
 
         } else if (isVisibleCart) {
 
-            return <ProductCart />;
+            return <ShoppingCart />;
 
         }
         return null;

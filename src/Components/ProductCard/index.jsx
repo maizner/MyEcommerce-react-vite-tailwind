@@ -8,9 +8,8 @@ const ProductCard = (product) => {
     //consuming context
     const { addProductToCart, handleProductSelection, cartProducts, openCart } = useContext(CartContext); 
 
-
     //testructuring data 
-    const { category, image, title, price } = product.data;
+    const { id, category, image, title, price } = product.data;
 
     const renderIcon = (id) => {
         const isInCart = cartProducts.some(prod => prod.id === id);
@@ -64,7 +63,7 @@ const ProductCard = (product) => {
 
                
                 
-                {renderIcon(product.data.id)}
+                {renderIcon(id)}
 
                 <span className='absolute right-0 bottom-[-18px] z-10 bg-white font-semibold text-black text-lg m-2 py-[5px] px-2 leading-3 rounded-full'>
                     <span className='mr-[2px] text-[12px] leading-3'>$</span>{price}
