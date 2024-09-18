@@ -18,6 +18,9 @@ const CartProvider = ({children}) => {
     const [cartProducts, setCartProducts] = useState([])
     const [order, setOrder] = useState([])
 
+    const [searchByTitle, setSearchByTitle] = useState([])
+    console.log(searchByTitle)
+
     const openDetail = () => {
         setIsVisibleDetail(true);
         setIsVisibleCart(false);
@@ -149,7 +152,8 @@ useEffect(() => {
             addProductToCart,
             decrementProductQuantity,
             ItemIDCount, setItemIDCount,
-            order, setOrder
+            order, setOrder,
+            searchByTitle, setSearchByTitle
         }}>
 
             {children}
