@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const Layout = ( {children} ) => {
     return( 
 
-        <div className='flex flex-col items-center py-5 px-8 mt-[68px]'>
+        <div className='flex flex-col items-center py-2 px-8 mt-[68px] relative'>
             {children}
         </div>
 

@@ -8,18 +8,20 @@ const CartProvider = ({children}) => {
      
     //States factory
     const [items, setItems] = useState(null);
+    const [filteredItems, setFilteredItems] = useState(null);
     const [cartItemsCount, setCartItemsCount] = useState(0);
-    const [ItemIDCount, setItemIDCount] = useState(1);
+    // const [ItemIDCount, setItemIDCount] = useState(1);
 
     const [isVisibleDetail, setIsVisibleDetail] = useState(false);
     const [isVisibleCart, setIsVisibleCart] = useState(false);
 
     const [selectedProduct, setSelectedProduct] = useState({})
     const [cartProducts, setCartProducts] = useState([])
-    const [order, setOrder] = useState([])
 
-    const [searchByTitle, setSearchByTitle] = useState([])
-    console.log(searchByTitle)
+
+    const [searchByTitle, setSearchByTitle] = useState('')
+    const [searchByCategory, setSearchByCategory] = useState('')
+  
 
     const openDetail = () => {
         setIsVisibleDetail(true);
@@ -40,6 +42,26 @@ const CartProvider = ({children}) => {
     };
 
 
+
+    //Obtener un conjunto único de categorías.
+    const getUniqueCategories = () => {
+        const categories = items?.map(product => product.category);
+        return [...new Set(categories)]; // Eliminar duplicados
+    };
+    //Obtener solo los productos que coinciden exactamente con la categoría que se pasa como argumento (category).
+    const filteredByCategory = (items, category) => {
+        return items?.filter(item => item.category === category
+        )
+    };
+    //Obtener solo los productos que coinciden el título que se pasa como argumento(searchByTitle) y se captura en el input (setSearchByTitle).
+    const filteredByTitle = (items, searchByTitle) => {
+        return items?.filter(item => 
+            item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+        )
+    };
+
+    //Effects  
+
     useEffect(()=> {
 
         fetch('https://fakestoreapi.com/products')
@@ -50,18 +72,32 @@ const CartProvider = ({children}) => {
         
     }, [])
 
-    // Abrir el sidebar solo cuando hay un producto seleccionado
+    //En este efecto se unifica el concepto de filtrado y se tiene en cuenta el filtrado múltiple 
+    //para que el estado filteredItems se modifica dependiendo del flitro que se tenga que aplicar
+    useEffect(() => {
+        let filtered = items;
+     
+        if (searchByTitle) {
+            filtered = filteredByTitle(filtered, searchByTitle);
+        }
+        
+        if (searchByCategory.length) {
+            filtered = filteredByCategory(filtered, searchByCategory);
+        }
+     
+        setFilteredItems(filtered);
+     }, [items, searchByTitle, searchByCategory]);
+    
+
+    // Abrir el sidebar solo cuando hay un producto seleccionado o añadido al carrito
     useEffect( () => {
         if (selectedProduct && Object.keys(selectedProduct).length > 0){
             openDetail();
-        }
-    }, [selectedProduct])
-
-    useEffect( () => {
-        if (cartProducts && cartProducts.length > 0){
+        }else if (cartProducts && cartProducts.length > 0){
             openCart();
         }
-    }, [cartProducts])
+    }, [selectedProduct, cartProducts])
+
 
    // Hook useEffect para actualizar el conteo total de productos en el carrito cuando cambie el carrito de productos
 useEffect(() => {
@@ -126,11 +162,9 @@ useEffect(() => {
 
 
     const handleProductSelection = (product) => {
-        setSelectedProduct({}); 
-        setTimeout(() => {setSelectedProduct(product); }, 0); 
+        setSelectedProduct(product);
     };
 
-    
 
     return (
 
@@ -151,9 +185,13 @@ useEffect(() => {
             setCartProducts,
             addProductToCart,
             decrementProductQuantity,
-            ItemIDCount, setItemIDCount,
-            order, setOrder,
-            searchByTitle, setSearchByTitle
+            searchByTitle, 
+            setSearchByTitle,
+            filteredItems, 
+            setFilteredItems,
+            searchByCategory, 
+            setSearchByCategory,
+            getUniqueCategories
         }}>
 
             {children}

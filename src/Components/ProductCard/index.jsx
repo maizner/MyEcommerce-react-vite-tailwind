@@ -44,7 +44,7 @@ const ProductCard = (product) => {
     return (
 
         <div 
-        className='card bg-white cursor-pointer w-full h-60 overflow-hidden  scale-100 hover:scale-105 transform transition-transform duration-300'
+        className='card bg-white rounded-lg cursor-pointer w-full h-60 overflow-hidden scale-100 hover:scale-105 transform transition-transform duration-300'
         onClick={() => handleProductSelection(product.data)}
 
         > 
@@ -54,7 +54,7 @@ const ProductCard = (product) => {
                     {category}
                 </span>
 
-                <div className='flex items-center justify-center w-full h-full max-h-[192px] overflow-hidden border border-black rounded-lg p-6'>
+                <div className='flex items-center justify-center w-full h-full max-h-[192px] overflow-hidden border border-gray-400 rounded-lg p-6'>
                     <img className='max-w-full max-h-full object-contain' 
                     src={image} 
                     alt={title}

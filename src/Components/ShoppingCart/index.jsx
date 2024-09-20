@@ -6,11 +6,8 @@ import { totalPrice } from '../../Utils';
 
 const ShoppingCart = () => {
     // Consuming context
-    const { setCartProducts,cartProducts,order, setOrder } = useContext(CartContext); 
+    const { setCartProducts,cartProducts,order, setOrder,closeSidebar } = useContext(CartContext); 
     const [checkoutCompleted, setCheckoutCompleted] = useState(false);
-
-
-
 
     const handleCheckout = () => {
         const date = new Date();
@@ -27,6 +24,7 @@ const ShoppingCart = () => {
         setOrder([...order, orderToAdd]);
         setCartProducts([]);
         setCheckoutCompleted(true); 
+        closeSidebar();
 
     }
 
@@ -35,7 +33,7 @@ const ShoppingCart = () => {
             <div className='flex justify-between items-center m-2'>
                 <h2 className="text-lg font-medium p-2">Shopping Cart</h2>
             </div>
-            <div className='px-6 pt-2 pb-[120px] overflow-y-auto'> 
+            <div className='flex flex-col items-center justify-center text-center px-6 pt-2 pb-[120px] overflow-y-auto'> 
                 {
                     cartProducts && cartProducts.length > 0 ? (
                         cartProducts?.map(product => (
@@ -54,14 +52,13 @@ const ShoppingCart = () => {
 
                         checkoutCompleted ?(
 
-                            <p className='flex items-center justify-center text-center text-gray-500 h-full'>
-                                Thank you for your purchase! 🎉 <br /> 
-                                Your order has been placed successfully. 
+                            <p className='flex text-center text-gray-500 h-full'>
+                               Your cart is Empty
                             </p>
 
                         ) :(
 
-                            <p className='flex items-center justify-center text-center text-gray-500 h-full'> 
+                            <p className='flex text-center text-gray-500'> 
                                 Oops! Your cart is feeling a little light. <br /> 
                                 Start adding items to fill it up and enjoy your shopping!
                             </p>

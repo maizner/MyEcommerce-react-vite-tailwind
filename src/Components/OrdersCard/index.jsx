@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 
 const OrdersCard = ({ totalPrice, totalProducts, date  }) => {
-//    const totalOrders = index +1
-//    console.log(totalOrders)
+
 
 
     return (
