@@ -10,14 +10,15 @@ const CartProvider = ({children}) => {
     const [items, setItems] = useState(null);
     const [filteredItems, setFilteredItems] = useState(null);
     const [cartItemsCount, setCartItemsCount] = useState(0);
-    // const [ItemIDCount, setItemIDCount] = useState(1);
+
+  //Estado 
+  const [order, setOrder] = useState([])
 
     const [isVisibleDetail, setIsVisibleDetail] = useState(false);
     const [isVisibleCart, setIsVisibleCart] = useState(false);
 
     const [selectedProduct, setSelectedProduct] = useState({})
     const [cartProducts, setCartProducts] = useState([])
-
 
     const [searchByTitle, setSearchByTitle] = useState('')
     const [searchByCategory, setSearchByCategory] = useState('')
@@ -99,20 +100,16 @@ const CartProvider = ({children}) => {
     }, [selectedProduct, cartProducts])
 
 
-   // Hook useEffect para actualizar el conteo total de productos en el carrito cuando cambie el carrito de productos
-useEffect(() => {
-    // Calcula el total de productos en el carrito y actualiza el estado correspondiente
-    setCartItemsCount(
-        // Reduce el array de productos en el carrito a un solo valor: el conteo total de productos
-        cartProducts.reduce((total, product) =>
-            // Suma la cantidad del producto actual al total acumulado
-            total + product.quantity,
-            // Valor inicial del total acumulado es 0
-            0
-        )
-    );
-    // Dependencia: el efecto se ejecutará cada vez que cambie el estado de cartProducts
-}, [cartProducts]);
+    // Reduce el array de productos en el carrito a un solo valor: el conteo total de productos y  
+    //Suma la cantidad del producto actual al total acumulado. El Valor inicial del total acumulado es 0
+    const calculateTotalItems = (cartProducts) => {
+        return cartProducts.reduce((total, product) => total + product.quantity, 0);
+    };
+
+    // Hook useEffect para actualizar el conteo total de productos en el carrito cuando cambie el carrito de productos
+    useEffect(() => {
+        setCartItemsCount(calculateTotalItems(cartProducts));
+    }, [cartProducts]);
 
 
    
@@ -142,8 +139,7 @@ useEffect(() => {
     };
 
     
-
-     // Decrementar cantidad del producto
+    // Decrementar cantidad del producto
     const decrementProductQuantity = (productId) => {
 
         setCartProducts(prevCart => 
@@ -154,11 +150,11 @@ useEffect(() => {
 
     }
 
-    const removeProductFromCart = (productId) => {
-        setCartProducts((prevCart) => {
-            return prevCart.filter((item) => item.id !== productId);
-        });
-      };
+const removeProductFromCart = (productId) => {
+    setCartProducts((prevCart) => {
+        return prevCart.filter((item) => item.id !== productId);
+    });
+    };
 
 
     const handleProductSelection = (product) => {
@@ -171,6 +167,8 @@ useEffect(() => {
         <CartContext.Provider value={{
             items, 
             setItems,
+            order,
+            setOrder,
             cartItemsCount, 
             setCartItemsCount,
             isVisibleDetail, 

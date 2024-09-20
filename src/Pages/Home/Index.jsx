@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext} from 'react';
 import { CartContext } from '../../Context';
 import { Layout } from '../../Components/Layout';
 import { ProductCard } from '../../Components/ProductCard';
-import {  ChevronRightIcon } from '@heroicons/react/24/outline';
+
 
 
 function Home() {
@@ -33,7 +32,7 @@ function Home() {
           
         }else {
             return (
-                <div className=' relative w-full md:min-w-screen-md lg:min-w-screen-lg'>
+                <div className='relative w-full md:min-w-screen-md lg:min-w-screen-lg'>
                     <div className='absolute top-[-50px] left-0 w-full '>
                         <div className='grid gap-4 grid-cols-4 w-full md:min-w-screen-md lg:max-w-screen-lg lg:min-w-screen-lg mx-auto '>
                             {
@@ -52,26 +51,12 @@ function Home() {
     return (
         <Layout >   
             {/* Segunda navegación  */}
-            <div className='second-nav w-full flex justify-between items-end'>
-                {/* Breadcrumbs  */}
-                <div className='w-full flex items-start justify-start text-left py-2 gap-0'>
-                    <Link className='text-sm font-semibold flex items-center'> 
-                        item 
-                        < ChevronRightIcon className='w-3 h-3 m-1'/> 
-                    </Link>
-                    <Link className='text-sm font-semibold flex items-center'> 
-                        item  
-                        < ChevronRightIcon className='w-3 h-3 m-1'/> 
-                    </Link>
-                    <Link className='text-sm font-semibold flex items-center'> 
-                        item 
-                        < ChevronRightIcon className='w-3 h-3 m-1'/> 
-                    </Link>
-                </div>
+            <div className='second-nav w-full flex justify-end items-end'>
+              
                 {/* Combo de categorías  */}
                 <div className='mb-1'>
                     <select 
-                        className='border p-2 rounded-lg capitalize text-sm' 
+                        className='border p-2 rounded-lg capitalize text-sm focus:outline-0' 
                         value={searchByCategory} 
                         onChange={(e) => setSearchByCategory(e.target.value)}
                     >
@@ -80,6 +65,7 @@ function Home() {
                             <option key={index} value={category}>{category}</option>
                         ))}
                     </select>
+                    
                 </div>
             </div>
              {/*Banner Hero*/}

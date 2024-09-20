@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { CartContext } from '../../Context';
 import { Link } from 'react-router-dom';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { OrderCard } from '../../Components/OrderCard';
@@ -7,8 +8,8 @@ import { totalPrice } from '../../Utils';
 
 function MyOrder() {
 
-    //Estado 
-    const [order] = useState([])
+    const { order } = useContext(CartContext); 
+
     
     const lastOrder = order.length > 0 ? order[order.length - 1] : null;
     const currentPath = window.location.pathname;
