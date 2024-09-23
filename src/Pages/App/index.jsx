@@ -2,13 +2,13 @@ import { useContext } from 'react';
 import { CartProvider, CartContext } from '../../Context';
 import { useRoutes, BrowserRouter } from 'react-router-dom';
 import { Home } from '../Home';
-import MyAccount from '../MyAccount/index';
-import MyOrder from '../MyOrder/index';
-import MyOrders from '../MyOrders/index';
-import SignIn from '../SignIn/index';
-import NotFound from '../NotFound/index';
-import { Navbar } from '../../Components/Navbar/index';
-import { Sidebar } from '../../Components/Sidebar/index';
+import MyAccount from '../MyAccount';
+import MyOrder from '../MyOrder';
+import MyOrders from '../MyOrders';
+import SignIn from '../SignIn';
+import NotFound from '../NotFound';
+import { Navbar } from '../../Components/Navbar';
+import { Sidebar } from '../../Components/Sidebar';
 
 import './App.css';
 
