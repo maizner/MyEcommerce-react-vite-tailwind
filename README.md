@@ -1,4 +1,4 @@
-![Cover Image](cover-image.png)
+![Cover Image](public/images/cover-image.png)
 
 # MyEcommerce
 
