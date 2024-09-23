@@ -40,8 +40,23 @@ const CartProvider = ({children}) => {
         setIsVisibleDetail(false);
         setIsVisibleCart(false);
         setSelectedProduct({});
-    };
+       
 
+    };
+    
+     useEffect( () => {
+        if (selectedProduct && Object.keys(selectedProduct).length > 0){
+            openDetail();
+        }
+      
+    }, [selectedProduct])
+
+    useEffect( () => {
+      
+       if (cartProducts && cartProducts.length > 0){
+            openCart();
+        }
+    }, [cartProducts])
 
 
     //Obtener un conjunto único de categorías.
@@ -90,14 +105,7 @@ const CartProvider = ({children}) => {
      }, [items, searchByTitle, searchByCategory]);
     
 
-    // Abrir el sidebar solo cuando hay un producto seleccionado o añadido al carrito
-    useEffect( () => {
-        if (selectedProduct && Object.keys(selectedProduct).length > 0){
-            openDetail();
-        }else if (cartProducts && cartProducts.length > 0){
-            openCart();
-        }
-    }, [selectedProduct, cartProducts])
+   
 
 
     // Reduce el array de productos en el carrito a un solo valor: el conteo total de productos y  
@@ -136,6 +144,7 @@ const CartProvider = ({children}) => {
                 return [...prevCart, { ...product, quantity: 1 }];
             }
         });
+        
     };
 
     

@@ -22,13 +22,14 @@ const Navbar = () => {
     const renderFilters = () => {
         const uniqueCategories = getUniqueCategories();
         // Renderiza la lista de categorías <li></li>
+        
         return (
             uniqueCategories.map((category, index) => (
                 <li key={index} className='font-normal text-sm capitalize'>
                     <NavLink 
                         to={`/${category.toLowerCase().replace(/'/g, '').replace(/\s+/g, '-')}`}
                         onClick={() => setSearchByCategory(category)}> 
-                            {category} 
+                            {category.replace(/'s clothing/, '').trim()} 
                     </NavLink>
                 </li>
             ))
@@ -39,7 +40,7 @@ const Navbar = () => {
         <nav className='flex flex-col md:flex-col lg:flex-row justify-between fixed z-10 top-0 items-center w-full py-2 px-8 text-sm font-light bg-white'>
             {/* Main UL */}
             <ul className='flex flex-row items-center gap-3'>
-                <li className='font-normal text-sm capitalize'>
+                <li className='font-normal text-sm capitalize mr-4'>
                     <NavLink to='/'>
                         <img src={logo} alt="Logo" width="120" height="auto" />
                     </NavLink>

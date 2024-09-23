@@ -24,13 +24,14 @@ function MyOrders() {
 
           return (
             <Link key={index} to={`/my-orders/${index}`}>
+
               <OrdersCard 
- 
                     index={index} 
                     totalPrice={ordr.totalPrice} 
                     totalProducts={ordr.totalProducts} 
                     date={ordr.date }
               />
+              
             </Link>
           );
         })

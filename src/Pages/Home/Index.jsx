@@ -51,7 +51,7 @@ function Home() {
     return (
         <Layout >   
             {/* Segunda navegación  */}
-            <div className='second-nav w-full flex justify-end items-end'>
+            <div className='second-nav w-full flex justify-start items-end'>
               
                 {/* Combo de categorías  */}
                 <div className='mb-1'>
@@ -59,17 +59,18 @@ function Home() {
                         className='border p-2 rounded-lg capitalize text-sm focus:outline-0' 
                         value={searchByCategory} 
                         onChange={(e) => setSearchByCategory(e.target.value)}
+                        
                     >
                         <option value=''>All Categories</option>
                         {getUniqueCategories().map((category, index) => (
-                            <option key={index} value={category}>{category}</option>
+                            <option key={index} value={category}>{category.replace(/'s clothing/, '').trim()}</option>
                         ))}
                     </select>
                     
                 </div>
             </div>
              {/*Banner Hero*/}
-            <div className='bg-[url("/images/bg-2.png")] bg-cover bg-center w-full h-[250px] bg-slate-100 flex items-center justify-center mb-4 rounded-lg border border-gray-300'>  
+            <div className='bg-[url("/images/bg-3.jpg")] bg-cover bg-center w-full h-[250px] bg-slate-100 flex items-center justify-center mb-4 rounded-lg border border-gray-300'>  
             </div>
 
             {renderView()}
