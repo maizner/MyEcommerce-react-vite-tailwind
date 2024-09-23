@@ -1,4 +1,4 @@
-![Cover Image](cover-mvp.png)
+![Cover Image](cover-image.png)
 
 # MyEcommerce
 
