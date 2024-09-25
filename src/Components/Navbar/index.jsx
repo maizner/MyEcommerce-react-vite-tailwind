@@ -6,23 +6,77 @@ import {MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-    const { cartItemsCount, openCart, setSearchByTitle, setSearchByCategory, getUniqueCategories  } = useContext(CartContext);
-
+    const { cartItemsCount, openCart, setSearchByTitle, setSearchByCategory, getUniqueCategories, setSignOut, signOut  } = useContext(CartContext);
+     const activeStyle = 'underline underline-offset-4'
 
     const getCartBackgroundColor = () => {
-        // if (cartItemsCount > 0)  
-        //     return 'bg-green-500'; 
-        // else 
-        //     return 'bg-gray-100';
         return cartItemsCount > 0 ? 'bg-green-500' : 'bg-gray-100';
+    }
+    const handleSignOut = () => {
+        setSignOut(true); // Actualiza el contexto cuando el usuario se desloguea
+   }
+    const renderLoginMenu = () => {
+        if (signOut) {
 
+            return (
+            
+                <li>
+                    <NavLink
+                        to='/sign-in'
+                        className={({ isActive }) =>
+                        isActive ? activeStyle : undefined}
+                        onClick = { handleSignOut }
+                        >
+                        Sign Out
+                    </NavLink>
+                </li>
+            );
+        }else {
+
+            return (
+                <>
+                <li className='text-black/60'>
+                maiaaizner@gmail.com
+                </li>
+                <li>
+                    <NavLink
+                    to='/my-orders'
+                    className={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                    }>
+                    My Orders
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                    to='/my-account'
+                    className={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                    }>
+                    My Account
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                    to='/sign-in'
+                    className={({ isActive }) =>
+                        isActive ? activeStyle : undefined}
+                    onClick = { () => handleSignOut() }
+                        >
+                    Sign Out
+                    </NavLink>
+                </li>
+                </>
+
+            );
+
+        }
     }
 
 
-    const renderFilters = () => {
+    const renderCatFilters = () => {
         const uniqueCategories = getUniqueCategories();
-        // Renderiza la lista de categorías <li></li>
-        
+      
         return (
             uniqueCategories.map((category, index) => (
                 <li key={index} className='font-normal text-sm capitalize'>
@@ -38,17 +92,17 @@ const Navbar = () => {
 
     return (
         <nav className='flex flex-col md:flex-col lg:flex-row justify-between fixed z-10 top-0 items-center w-full py-2 px-8 text-sm font-light bg-white'>
-            {/* Main UL */}
+            {/* Category Menu */}
             <ul className='flex flex-row items-center gap-3'>
                 <li className='font-normal text-sm capitalize mr-4'>
                     <NavLink to='/'>
                         <img src={logo} alt="Logo" width="120" height="auto" />
                     </NavLink>
                 </li>
-                {renderFilters()}
+                {renderCatFilters()}
               
             </ul>
-            {/* Barra de búsqueda */}
+            {/* Search Bar */}
             <div className='py-2 relative'>
 
                 <input 
@@ -60,19 +114,9 @@ const Navbar = () => {
                 <MagnifyingGlassIcon className='w-5 h-5 text-gray-400 absolute left-2 top-4' /> 
             </div>
 
+            {/* Login Menu*/}
             <ul className='flex flex-row items-center gap-3'>
-                <li className='text-black/60'>
-                    maiaaizner@gmail.com
-                </li>
-                <li className='font-normal text-sm capitalize'>
-                    <NavLink to='/my-orders'>My Orders</NavLink>
-                </li>
-                <li className='font-normal text-sm capitalize'>
-                    <NavLink to='/my-account'>My Account</NavLink>
-                </li>
-                <li className='font-normal text-sm capitalize'>
-                    <NavLink to='/sign-in'>Sign In</NavLink>
-                </li>
+                {renderLoginMenu()}
 
                 <li className='flex flex-row items-center justify-center gap-1 relative cursor-pointer'
                  onClick={() => openCart()}

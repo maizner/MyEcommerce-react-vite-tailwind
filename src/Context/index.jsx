@@ -1,15 +1,21 @@
 import { createContext,useState, useEffect } from 'react';
+import { useLocalStorage } from './useLocalStorage.jsx';
 import PropTypes from 'prop-types'; 
 
 
 const CartContext = createContext();
 
 const CartProvider = ({children}) => { 
-     
+    const { parsedAccount, parsedSignOut } = useLocalStorage();
     //States factory
     const [items, setItems] = useState(null);
     const [filteredItems, setFilteredItems] = useState(null);
     const [cartItemsCount, setCartItemsCount] = useState(0);
+      // My Account: Inicializa el estado usando los valores de localStorage.
+  //  account = useState({})
+  //  signOut = useState(false)
+   const [account, setAccount] = useState(parsedAccount);
+   const [signOut, setSignOut] = useState(parsedSignOut);
 
   //Estado 
   const [order, setOrder] = useState([])
@@ -44,21 +50,7 @@ const CartProvider = ({children}) => {
 
     };
     
-     useEffect( () => {
-        if (selectedProduct && Object.keys(selectedProduct).length > 0){
-            openDetail();
-        }
-      
-    }, [selectedProduct])
-
-    useEffect( () => {
-      
-       if (cartProducts && cartProducts.length > 0){
-            openCart();
-        }
-    }, [cartProducts])
-
-
+   
     //Obtener un conjunto único de categorías.
     const getUniqueCategories = () => {
         const categories = items?.map(product => product.category);
@@ -104,8 +96,25 @@ const CartProvider = ({children}) => {
         setFilteredItems(filtered);
      }, [items, searchByTitle, searchByCategory]);
     
+     useEffect( () => {
+        if (selectedProduct && Object.keys(selectedProduct).length > 0){
+            openDetail();
+        }
+      
+    }, [selectedProduct])
 
-   
+    useEffect( () => {
+      
+       if (cartProducts && cartProducts.length > 0){
+            openCart();
+        }
+    }, [cartProducts])
+    
+    // Sincronizo el estado de signOut con localStorage.
+    useEffect( () => {
+        localStorage.setItem('sign-out', JSON.stringify(signOut))
+
+    }, [signOut]);
 
 
     // Reduce el array de productos en el carrito a un solo valor: el conteo total de productos y  
@@ -198,7 +207,11 @@ const removeProductFromCart = (productId) => {
             setFilteredItems,
             searchByCategory, 
             setSearchByCategory,
-            getUniqueCategories
+            getUniqueCategories,
+            account, 
+            setAccount,
+            signOut, 
+            setSignOut,
         }}>
 
             {children}
