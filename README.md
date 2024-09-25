@@ -4,6 +4,8 @@
 
 MyEcommerce is a collaborative project aimed at helping developers learn the fundamentals of building an eCommerce application using React, Tailwind CSS, and Vite. This project emphasizes practical skills in front-end development, including product management, cart functionalities, and order handling. 
 
+##Go to [online version here](https://maiaaizner-ecommerce.netlify.app/)
+
 ## Features
 
 - **Product Management:** Easily browse and filter products.
