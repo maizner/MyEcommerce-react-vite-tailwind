@@ -11,7 +11,7 @@ GO <a href="https://maiaaizner-ecommerce.netlify.app/" target="_blank">online ve
 - **Product Management:** Easily browse and filter products.
 - **Shopping Cart:** Add products to the cart and manage quantities.
 - **Order Handling:** Place orders and view purchase history.
-- **User-Friendly Interface:** Enjoy a modern and functional user experience.
+<!-- - **User-Friendly Interface:** Enjoy a modern and functional user experience. -->
 
 ## Technologies Used
 
@@ -46,9 +46,7 @@ To get started with MyEcommerce, follow these steps:
 
 
 ## Credits and Acknowledgments
-his project was developed based on the course <a href="https://platzi.com/home/clases/7396-react-vite-tailwindcss"> ¿Qué necesitas para aprender React.js?</a> rom Platzi. We give credit and thanks to Platzi and its instructor for providing the foundation of this project.
-
-The original project was based on a public Platzi repository, modified and expanded to include new features and usability improvements.
+This project was developed based on the course <a href="https://platzi.com/home/clases/7396-react-vite-tailwindcss"> React + Tailwind c/ Vite</a>  Platzi. We give credit and thanks to Platzi and its instructor for providing the foundation of this project.
 
 
 ## Initial Project Documentation
@@ -67,11 +65,12 @@ This project was created with Vite and utilizes the Fake Store API to manage pro
    npm run preview  # Previews the production build.
 
 
-Check the [Vite documentation](https://vitejs.dev/guide/) for more details or check the [Fake Store Api documentation](https://fakestoreapi.com/) for more details.
+Check resources 
+[Vite documentation](https://vitejs.dev/guide/)
+[Fake Store Api documentation](https://fakestoreapi.com/) 
+for more details.
 
 
-## Contributions
-If you would like to contribute to this E-commerce, feel free to fork the repository, create a new branch for your changes, and submit a pull request. Any contributions to improve the application are appreciated!
 
 ## Contact
 For any questions or suggestions, you can contact the project author at maiaaizner@gmail.com.
