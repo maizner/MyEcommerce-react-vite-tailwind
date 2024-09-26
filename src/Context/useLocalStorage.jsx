@@ -29,7 +29,7 @@ const useLocalStorage = () => {
 }
 export { useLocalStorage }
 
-// const account = { email: 'maiaaizner@gmail.com', signOut: false, password: '1234'};
-//   localStorage.setItem('account', JSON.stringify(account));
+// const account = { name: 'maia' , email: 'maiaaizner@gmail.com',password: '1234'};
+// localStorage.setItem('account', JSON.stringify(account));
 
 // localStorage.removeItem('account')

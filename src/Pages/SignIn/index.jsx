@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { CartContext } from '../../Context';
 // import { useLocalStorage } from './useLocalStorage.jsx';
 import { Layout } from '../../Components/Layout';
@@ -10,6 +10,19 @@ function SignIn() {
   const [view, setView] = useState('user-info')
   // capturo cuando no hay datos en local storage ( incluye en estado ya que estan sincronizados )
   const noAccountInStorage = account ? Object.keys(account).length === 0 : true;
+  const form = useRef(null);
+
+  const createAnAccount = () => {
+
+    const currentData = new FormData(form.current);
+    const userData = {
+      name: currentData.get('name'),
+      email: currentData.get('email'),
+      password: currentData.get('password')
+    }
+    console.log(userData)
+  }
+
 
   const renderLogin = () => {
     return (
@@ -48,18 +61,72 @@ function SignIn() {
     );
   }
  
-  const renderCreateUserInfo = () => {
+   const renderCreateUserInfo = () => {
     return (
-      console.log('TODO: Create render view')
+      <>
+       
+        <form ref={form} className='flex flex-col gap-4 w-80'>
+          <div className='flex flex-col gap-1'> 
+            <label htmlFor="name" className='font-light text-sm'>Your Name:</label>
+            <input type="text" 
+            id='name'
+            name='name'
+            defaultValue={account.name}
+            placeholder='John'
+            className='rounded-lg border border-black placeholder:font-light
+            placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+            />
+          </div>
+          <div className='flex flex-col gap-1'> 
+            <label htmlFor="email" className='font-light text-sm'>Your Email:</label>
+            <input type="email" 
+            id='email'
+            name='email'
+            defaultValue={account.email}
+            placeholder='hi@helloworld.com'
+            className='rounded-lg border border-black placeholder:font-light
+            placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+            />
+          </div>
+          <div className='flex flex-col gap-1'> 
+            <label htmlFor="password" className='font-light text-sm'>Your password:</label>
+            <input type="password" 
+            id='password'
+            name='password'
+            defaultValue={account.password}
+            placeholder='******'
+            className='rounded-lg border border-black placeholder:font-light
+            placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+            />
+          </div>
+          <Link to='/'>
+          <button
+            className='border-2 border-black text-black w-full rounded-lg py-3 mt-4 mb-2 hover:bg-black hover:text-white '
+            onClick={() => createAnAccount()}
+            >
+            Create
+          </button>
+          
+          </Link>
+
+        </form>
+      </>
     );
   }
 
-  const renderView = () => view ==='create-user-info' ? renderCreateUserInfo() : renderLogin();
+  const renderTitle = () => 
+    !noAccountInStorage ?
+    <h1 className='font-medium text-xl text-center mb-6 w-80 capitalize'>Welcome back {account.name}!</h1>
+  :
+    <h1 className='font-medium text-xl text-center mb-6 w-80 capitalize'>Welcome!</h1>
+  const renderView = () => 
+    view ==='create-user-info' ? 
+  renderCreateUserInfo() : renderLogin();
 
 
   return (
     <Layout>
-      <h1 className='font-medium text-xl text-center mb-6 w-80'>Welcome</h1>
+      {renderTitle()}
       {renderView()}
     </Layout>
   )
