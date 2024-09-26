@@ -28,3 +28,8 @@ const useLocalStorage = () => {
     return { parsedAccount, parsedSignOut };
 }
 export { useLocalStorage }
+
+// const account = { email: 'maiaaizner@gmail.com', signOut: false, password: '1234'};
+//   localStorage.setItem('account', JSON.stringify(account));
+
+// localStorage.removeItem('account')
