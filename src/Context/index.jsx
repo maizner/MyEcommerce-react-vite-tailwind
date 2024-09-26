@@ -110,11 +110,12 @@ const CartProvider = ({children}) => {
         }
     }, [cartProducts])
     
-    // Sincronizo el estado de signOut con localStorage.
-    useEffect( () => {
-        localStorage.setItem('sign-out', JSON.stringify(signOut))
-
-    }, [signOut]);
+    
+  // Sincronizo el estado de signOut y account con localStorage.
+  useEffect(() => {
+    localStorage.setItem('account', JSON.stringify(account));
+    localStorage.setItem('sign-out', JSON.stringify(signOut));
+  }, [account, signOut]);
 
 
     // Reduce el array de productos en el carrito a un solo valor: el conteo total de productos y  
