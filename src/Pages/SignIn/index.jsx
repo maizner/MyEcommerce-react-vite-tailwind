@@ -133,6 +133,13 @@ function SignIn() {
         >
             Create account
         </button>
+        <div className='text-center text-sm font-light' >
+            Already have an account?  
+            <button className='underline underline-offset-4 font-medium ml-2 text-green-500' 
+            onClick={() => setView('sign-in')}>
+            Sign in
+            </button>
+        </div>
         </form>
     </div>
   );
