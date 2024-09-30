@@ -6,14 +6,15 @@ import {MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-    const { cartItemsCount, openCart, setSearchByTitle, setSearchByCategory, getUniqueCategories, setSignOut, signOut  } = useContext(CartContext);
+    const { cartItemsCount, openCart, setSearchByTitle, setSearchByCategory, getUniqueCategories, setSignOut, signOut, account  } = useContext(CartContext);
      const activeStyle = 'underline underline-offset-4'
+     
 
     const getCartBackgroundColor = () => {
         return cartItemsCount > 0 ? 'bg-green-500' : 'bg-gray-100';
     }
     const handleSignOut = () => {
-        setSignOut(true); // Actualiza el contexto cuando el usuario se desloguea
+        setSignOut(true); 
    }
     const renderLoginMenu = () => {
         if (signOut) {
@@ -23,11 +24,13 @@ const Navbar = () => {
                 <li>
                     <NavLink
                         to='/sign-in'
-                        className={({ isActive }) =>
-                        isActive ? activeStyle : undefined}
+                        className={`
+                            ${({ isActive }) => isActive ? activeStyle : undefined}  
+                            py-2 px-4 text-white rounded-lg bg-green-500 hover:bg-green-500/70 font-semibold text-md transition-colors duration-300 ease-in-out
+                            `}
                         onClick = { handleSignOut }
                         >
-                        Sign Out
+                        Sign In
                     </NavLink>
                 </li>
             );
@@ -36,7 +39,7 @@ const Navbar = () => {
             return (
                 <>
                 <li className='text-black/60'>
-                maiaaizner@gmail.com
+                {account.email}
                 </li>
                 <li>
                     <NavLink
@@ -66,6 +69,7 @@ const Navbar = () => {
                     Sign Out
                     </NavLink>
                 </li>
+               
                 </>
 
             );
@@ -117,7 +121,7 @@ const Navbar = () => {
             {/* Login Menu*/}
             <ul className='flex flex-row items-center gap-3'>
                 {renderLoginMenu()}
-
+                
                 <li className='flex flex-row items-center justify-center gap-1 relative cursor-pointer'
                  onClick={() => openCart()}
                >

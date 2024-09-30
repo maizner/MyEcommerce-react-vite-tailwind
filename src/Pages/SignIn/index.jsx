@@ -7,14 +7,14 @@ function SignIn() {
 
   const { account, setSignOut, setAccount} = useContext(CartContext);
   const [view, setView] = useState('user-info');
-  // capturo cuando no hay datos en local storage ( incluye en estado ya que estan sincronizados )
-  const noAccountInStorage = account ? Object.keys(account).length === 0 : true;
+ 
+//   const noAccount = account ? Object.keys(account).length === 0 : true;
   const form = useRef(null);
-  const navigate = useNavigate(); // Hook para manejar navegación
+  const navigate = useNavigate(); 
 
   const handleSignIn = () => {
     setSignOut(false);
-    navigate('/'); // Navegación programática
+    navigate('/');
   };
 
   const createAnAccount = () => {
@@ -36,100 +36,113 @@ function SignIn() {
 
   const renderLogin = () => (
     <div className='flex flex-col w-80'>
-      <p>
-        <span className='font-light text-sm'>Email:</span>
-        <span>{account.email}</span>
-      </p>
-      <p>
-        <span className='font-light text-sm'>Password:</span>
-        <span>{account.password}</span>
-      </p>
-      <button
-        className='bg-black disabled:bg-black/40 text-white w-full rounded-lg py-3 mt-4 mb-2'
-        disabled={noAccountInStorage}
-        onClick={handleSignIn}
-      >
-        Log In
-      </button>
-      <div className='text-center'>
-        <a className='font-light text-xs underline underline-offset-4' href='/'>
-          Forgot My Password
-        </a>
-      </div>
-      <button
-        className='border-2 border-black text-black w-full rounded-lg py-3 mt-4 mb-2 hover:bg-black hover:text-white disabled:bg-black/40 disabled:border-0 disabled:text-white'
-        onClick={() => setView('create-user-info')}
-      >
-        Sign Up
-      </button>
+    
+        <form ref={form} className='flex flex-col w-full max-w-96  px-6 py-10 rounded-lg border border-black gap-2'>
+            <div className='flex flex-col gap-1'>
+                    <label htmlFor="email" className='font-light text-sm'>
+                    Your Email:
+                    </label>
+                    <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    defaultValue={account.email}
+                    placeholder="hi@helloworld.com"
+                    className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+                    />
+            </div>
+            
+            <div className='flex flex-col gap-1'>
+                    <label htmlFor="password" className='font-light text-sm'>
+                    Your password:
+                    </label>
+                    <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    defaultValue={account.password}
+                    placeholder="******"
+                    className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+                    />
+            </div>
+            <button
+                className=' text-white w-full rounded-lg py-3 mt-4 font-semibold text-md bg-green-500 hover:bg-green-500/70 text-md transition-colors duration-300 ease-in-out'
+                // disabled={noAccount}
+                onClick={handleSignIn}>
+                Log In
+            </button>
+               
+            <div className='text-center text-sm font-light' >
+                Don&apos;t have an account yet? 
+                <button className='underline underline-offset-4 font-medium ml-2 text-green-500' 
+                onClick={() => setView('create-user-info')}>
+                Sign Up
+                </button>
+            </div>
+          
+        </form>
     </div>
   );
 
   const renderCreateUserInfo = () => (
-    <form ref={form} className='flex flex-col gap-4 w-80'>
-      <div className='flex flex-col gap-1'>
-        <label htmlFor="name" className='font-light text-sm'>
-          Your Name:
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          defaultValue={account.name}
-          placeholder="John"
-          className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
-        />
-      </div>
-      <div className='flex flex-col gap-1'>
-        <label htmlFor="email" className='font-light text-sm'>
-          Your Email:
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          defaultValue={account.email}
-          placeholder="hi@helloworld.com"
-          className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
-        />
-      </div>
-      <div className='flex flex-col gap-1'>
-        <label htmlFor="password" className='font-light text-sm'>
-          Your password:
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          defaultValue={account.password}
-          placeholder="******"
-          className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
-        />
-      </div>
-      <button
-        className='border-2 border-black text-black w-full rounded-lg py-3 mt-4 mb-2 hover:bg-black hover:text-white'
-        type="button" // Cambiado a button para evitar el submit por defecto
-        onClick={createAnAccount}
-      >
-        Create
-      </button>
-    </form>
+    <div className='flex flex-col w-80'>
+        <form ref={form} className='flex flex-col w-full max-w-96  px-6 py-10 rounded-lg border border-black gap-2'>
+        <div className='flex flex-col gap-1'>
+            <label htmlFor="name" className='font-light text-sm'>
+            Your Name:
+            </label>
+            <input
+            type="text"
+            id="name"
+            name="name"
+            defaultValue={account.name}
+            placeholder="John"
+            className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+            />
+        </div>
+        <div className='flex flex-col gap-1'>
+            <label htmlFor="email" className='font-light text-sm'>
+            Your Email:
+            </label>
+            <input
+            type="email"
+            id="email"
+            name="email"
+            defaultValue={account.email}
+            placeholder="hi@helloworld.com"
+            className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+            />
+        </div>
+        <div className='flex flex-col gap-1'>
+            <label htmlFor="password" className='font-light text-sm'>
+            Your password:
+            </label>
+            <input
+            type="password"
+            id="password"
+            name="password"
+            defaultValue={account.password}
+            placeholder="******"
+            className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+            />
+        </div>
+        <button
+                className=' text-white w-full rounded-lg py-3 mt-4 font-semibold text-md bg-green-500 hover:bg-green-500/70 text-md transition-colors duration-300 ease-in-out'
+                type="button" // Cambiado a button para evitar el submit por defecto
+            onClick={createAnAccount}
+        >
+            Create account
+        </button>
+        </form>
+    </div>
   );
 
   const renderView = () => (view === 'create-user-info' ? renderCreateUserInfo() : renderLogin());
 
-  const renderTitle = () =>
-    !noAccountInStorage ? (
-      <h1 className='font-medium text-xl text-center mb-6 w-80 capitalize'>
-        Welcome back {account.name}!
-      </h1>
-    ) : (
-      <h1 className='font-medium text-xl text-center mb-6 w-80 capitalize'>Welcome!</h1>
-    );
-
+ 
   return (
     <Layout>
-      {renderTitle()}
+      <h1 className='font-medium text-xl text-center mb-6 w-full capitalize mt-8'>Welcome!</h1>
       {renderView()}
     </Layout>
   );
