@@ -1,146 +1,185 @@
-import { useContext, useState, useRef } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '../../Context';
 import { useNavigate } from 'react-router-dom'; 
 import { Layout } from '../../Components/Layout';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 function SignIn() {
 
   const { account, setSignOut, setAccount} = useContext(CartContext);
   const [view, setView] = useState('user-info');
+  
+
  
-//   const noAccount = account ? Object.keys(account).length === 0 : true;
-  const form = useRef(null);
+  const noAccount = account ? Object.keys(account).length === 0 : true;
+
+  const validationSchema = Yup.object({
+    // name: Yup.string().required('Required'),
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string().min(6, 'Too short!').required('Required'),
+  });
+
+//   const form = useRef(null);
   const navigate = useNavigate(); 
 
-  const handleSignIn = () => {
-    setSignOut(false);
-    navigate('/');
-  };
-
-  const createAnAccount = () => {
-    const currentData = new FormData(form.current);
-    const userData = {
-      name: currentData.get('name'),
-      email: currentData.get('email'),
-      password: currentData.get('password'),
-    };
-    console.log('create account with: ', userData);
-
-    setAccount(userData);
-
-   
-    setTimeout(() => {
-      handleSignIn();
-    }, 100); 
-  };
-
-  const renderLogin = () => (
-    <div className='flex flex-col w-80'>
+  const handleSignIn = (values) => {
     
-        <form ref={form} className='flex flex-col w-full max-w-96  px-6 py-10 rounded-lg border border-black gap-2'>
-            <div className='flex flex-col gap-1'>
+     if (!noAccount && values.email === account.email && values.password === account.password) {
+
+        setSignOut(false);
+        navigate('/');
+       
+    } else {
+       // Muestra un mensaje de error si los datos no coinciden
+        alert('Los datos no coinciden. ¿Deseas registrarte?');
+        setView('create-user-info');
+        
+        
+    }
+  };
+
+
+
+    const createAnAccount = (values) => {
+        // Verificar si ya existe una cuenta con el mismo correo
+        if (account && account.email === values.email) {
+            alert('Ya existe una cuenta con este correo.');
+            setView('sign-in');
+            
+        }else {
+            console.log('create account with: ', values);
+            setAccount(values);
+            // handleSignIn(values);
+            setSignOut(false);
+        navigate('/');
+            
+        }
+    };
+    
+    const renderLogin = () => (
+        <div className='flex flex-col w-80'>
+
+
+            <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={validationSchema}
+            onSubmit={handleSignIn}
+            >
+        
+            <Form className='flex flex-col w-full max-w-96 px-6 py-10 rounded-lg border border-black gap-2'>
+                <h2 className='text-center'>Login</h2>
+                <div className='flex flex-col gap-1'>
                     <label htmlFor="email" className='font-light text-sm'>
                     Your Email:
                     </label>
-                    <input
+                    <Field
                     type="email"
                     id="email"
                     name="email"
-                    defaultValue={account.email}
                     placeholder="hi@helloworld.com"
                     className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
                     />
-            </div>
-            
-            <div className='flex flex-col gap-1'>
+                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                </div>
+
+                <div className='flex flex-col gap-1'>
                     <label htmlFor="password" className='font-light text-sm'>
                     Your password:
                     </label>
-                    <input
+                    <Field
                     type="password"
                     id="password"
                     name="password"
-                    defaultValue={account.password}
                     placeholder="******"
                     className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
                     />
-            </div>
-            <button
-                className=' text-white w-full rounded-lg py-3 mt-4 font-semibold text-md bg-green-500 hover:bg-green-500/70 text-md transition-colors duration-300 ease-in-out'
-                // disabled={noAccount}
-                onClick={handleSignIn}>
-                Log In
-            </button>
-               
-            <div className='text-center text-sm font-light' >
-                Don&apos;t have an account yet? 
-                <button className='underline underline-offset-4 font-medium ml-2 text-green-500' 
-                onClick={() => setView('create-user-info')}>
-                Sign Up
+                    <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+                </div>
+                <button
+                    type="submit"
+                    className='text-white w-full rounded-lg py-3 mt-4 font-semibold text-md bg-green-500 hover:bg-green-500/70 text-md transition-colors duration-300 ease-in-out'
+                >
+                    Log In
                 </button>
-            </div>
-          
-        </form>
-    </div>
-  );
+
+                <div className='text-center text-sm font-light'>
+                    Don&apos;t have an account yet?
+                    <button className='underline underline-offset-4 font-medium ml-2 text-green-500'
+                    onClick={() => setView('create-user-info')}>
+                    Sign Up
+                    </button>
+                </div>
+            </Form>
+            </Formik>
+        </div>
+    );
 
   const renderCreateUserInfo = () => (
     <div className='flex flex-col w-80'>
-        <form ref={form} className='flex flex-col w-full max-w-96  px-6 py-10 rounded-lg border border-black gap-2'>
-        <div className='flex flex-col gap-1'>
-            <label htmlFor="name" className='font-light text-sm'>
-            Your Name:
-            </label>
-            <input
-            type="text"
-            id="name"
-            name="name"
-            defaultValue={account.name}
-            placeholder="John"
-            className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
-            />
-        </div>
-        <div className='flex flex-col gap-1'>
-            <label htmlFor="email" className='font-light text-sm'>
-            Your Email:
-            </label>
-            <input
-            type="email"
-            id="email"
-            name="email"
-            defaultValue={account.email}
-            placeholder="hi@helloworld.com"
-            className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
-            />
-        </div>
-        <div className='flex flex-col gap-1'>
-            <label htmlFor="password" className='font-light text-sm'>
-            Your password:
-            </label>
-            <input
-            type="password"
-            id="password"
-            name="password"
-            defaultValue={account.password}
-            placeholder="******"
-            className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
-            />
-        </div>
-        <button
-                className=' text-white w-full rounded-lg py-3 mt-4 font-semibold text-md bg-green-500 hover:bg-green-500/70 text-md transition-colors duration-300 ease-in-out'
-                type="button" // Cambiado a button para evitar el submit por defecto
-            onClick={createAnAccount}
+
+        <Formik
+            initialValues={{ name: '', email: '', password: '' }}
+            validationSchema={validationSchema}
+            onSubmit={createAnAccount}
         >
-            Create account
-        </button>
-        <div className='text-center text-sm font-light' >
-            Already have an account?  
-            <button className='underline underline-offset-4 font-medium ml-2 text-green-500' 
-            onClick={() => setView('sign-in')}>
-            Sign in
+            <Form className='flex flex-col w-full max-w-96 px-6 py-10 rounded-lg border border-black gap-2'>
+            <div className='flex flex-col gap-1'>
+                        <h2 className='text-center'>Login</h2>
+                <label htmlFor="name" className='font-light text-sm'>
+                Your Name:
+                </label>
+                <Field
+                type="text"
+                id="name"
+                name="name"
+                placeholder="John"
+                className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+                />
+                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+
+            </div>
+            <div className='flex flex-col gap-1'>
+                <label htmlFor="email" className='font-light text-sm'>
+                Your Email:
+                </label>
+                <Field
+                type="email"
+                id="email"
+                name="email"
+                placeholder="hi@helloworld.com"
+                className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+                />
+                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+            </div>
+            <div className='flex flex-col gap-1'>
+                <label htmlFor="password" className='font-light text-sm'>
+                Your password:
+                </label>
+                <Field
+                type="password"
+                id="password"
+                name="password"
+                placeholder="******"
+                className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
+                />
+                <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+            </div>
+            <button
+                type="submit"
+                className='text-white w-full rounded-lg py-3 mt-4 font-semibold text-md bg-green-500 hover:bg-green-500/70 text-md transition-colors duration-300 ease-in-out'
+            >
+                Create account
             </button>
-        </div>
-        </form>
+            <div className='text-center text-sm font-light'>
+                Already have an account?
+                <button className='underline underline-offset-4 font-medium ml-2 text-green-500'
+                onClick={() => setView('sign-in')}>
+                Sign in
+                </button>
+            </div>
+            </Form>
+        </Formik>
     </div>
   );
 
