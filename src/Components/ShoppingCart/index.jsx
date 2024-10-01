@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { OrderCard } from '../OrderCard';
 import { CartContext } from '../../Context';
 import { totalPrice } from '../../Utils';
+import { toast } from 'react-toastify';
 
 const ShoppingCart = () => {
     // Consuming context
@@ -21,7 +22,7 @@ const ShoppingCart = () => {
         if (signOut) {
             setPendingCheckout(true);
             navigate('/sign-in');
-            alert('Debes loguearte primero');
+            toast.info('Please log in first.');
 
         } else {
             handleCheckout(); 

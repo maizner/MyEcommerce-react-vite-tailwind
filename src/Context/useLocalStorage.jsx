@@ -21,7 +21,7 @@ const useLocalStorage = () => {
 
     }
 
-    // Llama a saveItems para 'account' y 'sign-out' con sus valores por defecto.
+  
     const parsedAccount = saveItems('account', {});
     const parsedSignOut = saveItems('sign-out', false);
         
