@@ -26,7 +26,7 @@ const Navbar = () => {
                         to='/sign-in'
                         className={`
                             ${({ isActive }) => isActive ? activeStyle : undefined}  
-                            py-2 px-4 text-white rounded-lg bg-green-500 hover:bg-green-500/70 font-semibold text-md transition-colors duration-300 ease-in-out
+                            py-2 px-4 text-white rounded-lg bg-black hover:bg-black/70 font-semibold text-md transition-colors duration-300 ease-in-out
                             `}
                         onClick = { handleSignOut }
                         >

@@ -1,5 +1,6 @@
 import { createContext,useState, useEffect } from 'react';
 import { useLocalStorage } from './useLocalStorage.jsx';
+import { totalPrice } from '../Utils';
 import PropTypes from 'prop-types'; 
 
 
@@ -11,14 +12,16 @@ const CartProvider = ({children}) => {
     const [items, setItems] = useState(null);
     const [filteredItems, setFilteredItems] = useState(null);
     const [cartItemsCount, setCartItemsCount] = useState(0);
-      // My Account: Inicializa el estado usando los valores de localStorage.
-  //  account = useState({})
-  //  signOut = useState(false)
+
    const [account, setAccount] = useState(parsedAccount);
    const [signOut, setSignOut] = useState(parsedSignOut);
 
+   
+
   //Estado 
   const [order, setOrder] = useState([])
+  const [checkoutCompleted, setCheckoutCompleted] = useState(false);
+  const [pendingCheckout, setPendingCheckout] = useState(false);
 
     const [isVisibleDetail, setIsVisibleDetail] = useState(false);
     const [isVisibleCart, setIsVisibleCart] = useState(false);
@@ -169,11 +172,27 @@ const CartProvider = ({children}) => {
 
     }
 
-const removeProductFromCart = (productId) => {
-    setCartProducts((prevCart) => {
-        return prevCart.filter((item) => item.id !== productId);
+    const removeProductFromCart = (productId) => {
+        setCartProducts((prevCart) => {
+            return prevCart.filter((item) => item.id !== productId);
     });
     };
+
+    const handleCheckout = () => {
+        const date = new Date();
+        const orderToAdd = {
+            date: date.toLocaleDateString(),
+            products: cartProducts,
+            totalProducts: cartProducts.length,
+            totalPrice: totalPrice(cartProducts)
+        }
+        setOrder([...order, orderToAdd]);
+        setCartProducts([]);
+        setCheckoutCompleted(true); 
+        closeSidebar();
+       
+
+    }
 
 
     const handleProductSelection = (product) => {
@@ -213,6 +232,11 @@ const removeProductFromCart = (productId) => {
             setAccount,
             signOut, 
             setSignOut,
+            checkoutCompleted, 
+            setCheckoutCompleted,
+            pendingCheckout, 
+            setPendingCheckout,
+            handleCheckout
         }}>
 
             {children}

@@ -1,32 +1,34 @@
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { CartContext } from '../../Context';
+import { useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { OrderCard } from '../OrderCard';
+import { CartContext } from '../../Context';
 import { totalPrice } from '../../Utils';
 
 const ShoppingCart = () => {
     // Consuming context
-    const { setCartProducts,cartProducts,order, setOrder,closeSidebar } = useContext(CartContext); 
-    const [checkoutCompleted, setCheckoutCompleted] = useState(false);
+    const { 
+        cartProducts,
+        checkoutCompleted, 
+        signOut ,
+        setPendingCheckout,
+        handleCheckout
+    } = useContext(CartContext); 
+    
+    
+    const navigate = useNavigate(); 
 
-    const handleCheckout = () => {
-        const date = new Date();
-        const orderToAdd = {
-            date: date.toLocaleDateString(),
-            products: cartProducts,
-            totalProducts: cartProducts.length,
-            totalPrice: totalPrice(cartProducts)
+    const verifyLogin = () =>{
+        if (signOut) {
+            setPendingCheckout(true);
+            navigate('/sign-in');
+            alert('Debes loguearte primero');
 
+        } else {
+            handleCheckout(); 
+            navigate('/my-orders/last')
         }
-        console.log(totalPrice(cartProducts)); 
-        
-
-        setOrder([...order, orderToAdd]);
-        setCartProducts([]);
-        setCheckoutCompleted(true); 
-        closeSidebar();
-
     }
+    
 
     return (
         <>
@@ -73,14 +75,14 @@ const ShoppingCart = () => {
                     <span className='text-lg font-medium text-black'> $ {parseFloat(totalPrice(cartProducts).toFixed(2))}</span>
                 </p>
                
-                <Link to='/my-orders/last'>
+                {/* <Link to='/my-orders/last'> */}
                 
                     <button className='flex justify-center items-center  bg-green-500  rounded-lg m-2 p-2 hover:bg-green-600  transition-colors duration-300 ease-in-out w-full'
-                        onClick={() => handleCheckout()}>
+                        onClick={() => verifyLogin()}>
                         Checkout
                     </button>
 
-                </Link>
+                {/* </Link> */}
 
             </div>
         </>
