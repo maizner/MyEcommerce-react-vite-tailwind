@@ -95,9 +95,9 @@ const Navbar = () => {
     }
 
     return (
-        <nav className='flex flex-col md:flex-col lg:flex-row justify-between fixed z-10 top-0 items-center w-full py-2 px-8 text-sm font-light bg-white'>
+        <nav className='flex flex-col lg:flex-row justify-between fixed z-10 top-0 items-center w-full gap-3 md:p-4 lg:py-2 lg:px-8 text-sm font-light bg-white p-2'>
             {/* Category Menu */}
-            <ul className='flex flex-row items-center gap-3'>
+            <ul className='flex flex-row items-center justify-center lg:justify-start gap-3 w-[100%] lg:w-[35%]'>
                 <li className='font-normal text-sm capitalize mr-4'>
                     <NavLink to='/'>
                         <img src={logo} alt="Logo" width="120" height="auto" />
@@ -107,19 +107,20 @@ const Navbar = () => {
               
             </ul>
             {/* Search Bar */}
-            <div className='py-2 relative'>
-
+            <div className='relative w-[100%] lg:w-[30%] min-w-72 flex items-center justify-center'>
+                <div className='relative'>
                 <input 
+                    className='text-md font-normal border p-2 pl-8 border-black rounded-lg min-w-72 focus:outline-slate-900'
                     type='Search' 
                     placeholder='Search ...'
-                    className='text-md font-normal border p-2 pl-8 border-black rounded-lg min-w-72 focus:outline-slate-900'
                     onChange={(e) => setSearchByTitle(e.target.value)}/>
 
-                <MagnifyingGlassIcon className='w-5 h-5 text-gray-400 absolute left-2 top-4' /> 
+                <MagnifyingGlassIcon className='w-5 h-5 text-gray-400 absolute left-2 top-2' /> 
+                </div>
             </div>
 
             {/* Login Menu*/}
-            <ul className='flex flex-row items-center gap-3'>
+            <ul className='flex flex-row items-center justify-center lg:justify-end gap-3 w-[100%] lg:w-[35%]'>
                 {renderLoginMenu()}
                 
                 <li className='flex flex-row items-center justify-center gap-1 relative cursor-pointer'
