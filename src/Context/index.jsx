@@ -16,7 +16,7 @@ const CartProvider = ({children}) => {
    const [account, setAccount] = useState(parsedAccount);
    const [signOut, setSignOut] = useState(parsedSignOut);
 
-   
+   const [view, setView] = useState('user-info');
 
   //Estado 
   const [order, setOrder] = useState([])
@@ -236,7 +236,9 @@ const CartProvider = ({children}) => {
             setCheckoutCompleted,
             pendingCheckout, 
             setPendingCheckout,
-            handleCheckout
+            handleCheckout,
+            view, 
+            setView
         }}>
 
             {children}
