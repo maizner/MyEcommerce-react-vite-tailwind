@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Layout } from '../../Components/Layout';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 function SignIn() {
 
@@ -17,7 +18,7 @@ function SignIn() {
         handleCheckout
     } = useContext(CartContext);
 
-    // const noAccount = !account || Object.keys(account).length === 0;
+
     const [view, setView] = useState('user-info');
 
     const validationSchemaLogin = Yup.object({
@@ -45,7 +46,7 @@ function SignIn() {
                 navigate('/');
             }
         } else {
-            alert('Los datos no coinciden. ¿Deseas registrarte?');
+            toast.error('The provided credentials do not match our records. Would you like to sign up instead?');
             setView('create-user-info');
         }
     };
@@ -53,7 +54,10 @@ function SignIn() {
     const createAnAccount = (values) => {
 
         if (account && account.email === values.email) {
-            alert('Ya existe una cuenta con este correo.');
+            // alert('Ya existe una cuenta con este correo.');
+            toast.info('An account with this email address already exists.');
+
+            
             setView('sign-in');
             
         }else {

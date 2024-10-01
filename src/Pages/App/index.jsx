@@ -9,6 +9,8 @@ import SignIn from '../SignIn';
 import NotFound from '../NotFound';
 import { Navbar } from '../../Components/Navbar';
 import { Sidebar } from '../../Components/Sidebar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './App.css';
 
@@ -47,6 +49,7 @@ const App = () => {
                 <Navbar />
                 <AppRoutes />
                 <Sidebar />
+                <ToastContainer />
             </CartProvider>
         </BrowserRouter>
     )
