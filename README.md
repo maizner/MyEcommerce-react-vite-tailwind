@@ -80,9 +80,10 @@ If you would like to contribute to this project, feel free to fork the repositor
 For any questions or suggestions, you can contact the project author at maiaaizner@gmail.com.
 
 
-<div style="width:100%; display:flex; align-items:center;justify-content:center;">
- <img src="src/Components/Navbar/logo-brand.svg" alt="Logo" width="200" />
-</div> 
+<p align="center">
+  <img src="src/Components/Navbar/logo-brand.svg" alt="Logo" width="200" />
+</p>
+
 
 
 
