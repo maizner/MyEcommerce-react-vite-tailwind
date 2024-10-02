@@ -20,11 +20,8 @@ const CartProvider = ({children}) => {
     const [signOut, setSignOut] = useState(parsedSignOut);
     //Conditional rendering swap url´s within components
     const [view, setView] = useState('user-info');
-    //Purchase =>  MyOrder/MyOrders
-    const [order, setOrder] = useState([])
-    //Checkout
-    const [checkoutCompleted, setCheckoutCompleted] = useState(false);
-    const [pendingCheckout, setPendingCheckout] = useState(false);
+    //Sidebar
+    const [isCollapsedSidebar, setIsCollapsedSidebar] = useState(false);
     //ProductDetail
     const [isVisibleDetail, setIsVisibleDetail] = useState(false);
     //ShoppingCart
@@ -33,6 +30,11 @@ const CartProvider = ({children}) => {
     const [selectedProduct, setSelectedProduct] = useState({})
     //ShoppingCart
     const [searchByTitle, setSearchByTitle] = useState('')
+    //Purchase =>  MyOrder/MyOrders
+    const [order, setOrder] = useState([])
+    //Checkout
+    const [checkoutCompleted, setCheckoutCompleted] = useState(false);
+    const [pendingCheckout, setPendingCheckout] = useState(false);
     const [searchByCategory, setSearchByCategory] = useState('')
   
     
@@ -140,6 +142,7 @@ const CartProvider = ({children}) => {
                 return [...prevCart, { ...product, quantity: 1 }];
             }
         });
+        setIsCollapsedSidebar(false);
         
     };
     // Decrease product quantity in cart
@@ -216,7 +219,9 @@ const CartProvider = ({children}) => {
             setPendingCheckout,
             handleCheckout,
             view, 
-            setView
+            setView,
+            isCollapsedSidebar, 
+            setIsCollapsedSidebar
         }}>
             {children}
         </CartContext.Provider>
