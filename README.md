@@ -80,6 +80,7 @@ If you would like to contribute to this project, feel free to fork the repositor
 For any questions or suggestions, you can contact the project author at maiaaizner@gmail.com.
 
 
-![Logo](src/Components/Navbar/logo-brand.svg)
+<img src="src/Components/Navbar/logo-brand.svg" alt="Logo" width="200"/>
+
 
 
