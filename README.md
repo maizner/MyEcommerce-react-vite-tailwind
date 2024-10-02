@@ -11,7 +11,9 @@ GO <a href="https://maiaaizner-ecommerce.netlify.app/" target="_blank">online ve
 - **Product Management:** Easily browse and filter products.
 - **Shopping Cart:** Add products to the cart and manage quantities.
 - **Order Handling:** Place orders and view purchase history.
-<!-- - **User-Friendly Interface:** Enjoy a modern and functional user experience. -->
+- **User-Friendly Interface:** Enjoy a modern and functional user experience.
+- **Collapsible and Draggable Sidebar:** Collapse the sidebar to focus on the main content and drag it to reposition according to your preference, providing a customizable user experience.
+
 
 ## Technologies Used
 
@@ -66,7 +68,7 @@ This project was created with Vite and utilizes the Fake Store API to manage pro
 
 
 Check resources 
-[Vite documentation](https://vitejs.dev/guide/)
+[Vite documentation](https://vitejs.dev/guide/)<br>
 [Fake Store Api documentation](https://fakestoreapi.com/) 
 for more details.
 
