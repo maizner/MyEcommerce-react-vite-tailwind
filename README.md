@@ -11,14 +11,15 @@ GO <a href="https://maiaaizner-ecommerce.netlify.app/" target="_blank">online ve
 - **Product Management:** Easily browse and filter products.
 - **Shopping Cart:** Add products to the cart and manage quantities.
 - **Order Handling:** Place orders and view purchase history.
+- **User Account Management:** Sign in and manage your account, with data persisted through localStorage for a seamless user experience.
 - **User-Friendly Interface:** Enjoy a modern and functional user experience.
 - **Collapsible and Draggable Sidebar:** Collapse the sidebar to focus on the main content and drag it to reposition according to your preference, providing a customizable user experience.
-
 
 ## Technologies Used
 
 - **React:** For a dynamic and responsive user experience.
 - **Tailwind CSS:** For a modern and flexible design.
+- **localStorage:** For persisting user account and session data.
 - **REST API:** For managing products and orders.
 
 ## Installation
@@ -68,14 +69,17 @@ This project was created with Vite and utilizes the Fake Store API to manage pro
 
 
 Check resources 
-[Vite documentation](https://vitejs.dev/guide/)<br>
+[Vite documentation](https://vitejs.dev/guide/)<br> or
 [Fake Store Api documentation](https://fakestoreapi.com/) 
 for more details.
 
-
+## Contributions
+If you would like to contribute to this project, feel free to fork the repository, create a new branch for your changes, and submit a pull request. Any contributions to improve the application are appreciated!
 
 ## Contact
 For any questions or suggestions, you can contact the project author at maiaaizner@gmail.com.
 
+
+![Logo](src/Components/Navbar/logo-brand.svg)
 
 
