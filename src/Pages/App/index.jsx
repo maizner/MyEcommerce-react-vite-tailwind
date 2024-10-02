@@ -48,7 +48,7 @@ const App = () => {
                 <Navbar />
                 <AppRoutes />
                 <Sidebar />
-                <ToastContainer />
+                <ToastContainer position="bottom-right" />
             </CartProvider>
         </BrowserRouter>
     )

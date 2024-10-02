@@ -24,19 +24,14 @@ function SignUpForm() {
 
     const createAnAccount = (values) => {
 
-        if (account && account.email === values.email) {
-            
+        if (account && account.email === values.email) { 
             toast.info('An account with this email address already exists.');
-
-            
             setView('sign-in');
             
         }else {
-
             setAccount(values);
             setSignOut(false);
             navigate('/');
-            
         }
     };
 
@@ -46,7 +41,7 @@ function SignUpForm() {
         <Formik
             initialValues={{
                 name: '',
-                email: account?.email || '',  // Asegúrate de que siempre sea string
+                email: '', 
                 password: ''
             }}
             validationSchema={validationSchemaCreatAccount}
