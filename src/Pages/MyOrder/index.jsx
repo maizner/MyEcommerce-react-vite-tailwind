@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { CartContext } from '../../Context';
 import { Link } from 'react-router-dom';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { CartContext } from '../../Context';
 import { OrderCard } from '../../Components/OrderCard';
 import { Layout } from '../../Components/Layout';
 import { totalPrice } from '../../Utils';
@@ -94,4 +94,4 @@ function MyOrder() {
     );
 }
 
-export default MyOrder;
+export { MyOrder };

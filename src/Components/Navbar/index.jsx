@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { CartContext } from '../../Context';
-import logo from './logo-brand.svg';
+import { NavLink } from 'react-router-dom';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import {MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { NavLink } from 'react-router-dom';
+import { CartContext } from '../../Context';
+import logo from './logo-brand.svg';
 
 const Navbar = () => {
     const { cartItemsCount, openCart, setSearchByTitle, setSearchByCategory, getUniqueCategories, setSignOut, signOut, account  } = useContext(CartContext);

@@ -8,134 +8,117 @@ const CartContext = createContext();
 
 const CartProvider = ({children}) => { 
     const { parsedAccount, parsedSignOut } = useLocalStorage();
-    //States factory
+    //States *****
+
+    //product items
     const [items, setItems] = useState(null);
     const [filteredItems, setFilteredItems] = useState(null);
+    //product counter for navbar and sidebar
     const [cartItemsCount, setCartItemsCount] = useState(0);
-
-   const [account, setAccount] = useState(parsedAccount);
-   const [signOut, setSignOut] = useState(parsedSignOut);
-
-   const [view, setView] = useState('user-info');
-
-  //Estado 
-  const [order, setOrder] = useState([])
-  const [checkoutCompleted, setCheckoutCompleted] = useState(false);
-  const [pendingCheckout, setPendingCheckout] = useState(false);
-
+    //Account states
+    const [account, setAccount] = useState(parsedAccount);
+    const [signOut, setSignOut] = useState(parsedSignOut);
+    //Conditional rendering swap url´s within components
+    const [view, setView] = useState('user-info');
+    //Purchase =>  MyOrder/MyOrders
+    const [order, setOrder] = useState([])
+    //Checkout
+    const [checkoutCompleted, setCheckoutCompleted] = useState(false);
+    const [pendingCheckout, setPendingCheckout] = useState(false);
+    //ProductDetail
     const [isVisibleDetail, setIsVisibleDetail] = useState(false);
+    //ShoppingCart
     const [isVisibleCart, setIsVisibleCart] = useState(false);
-
-    const [selectedProduct, setSelectedProduct] = useState({})
     const [cartProducts, setCartProducts] = useState([])
-
+    const [selectedProduct, setSelectedProduct] = useState({})
+    //ShoppingCart
     const [searchByTitle, setSearchByTitle] = useState('')
     const [searchByCategory, setSearchByCategory] = useState('')
   
-
+    
+    //Effects & Functions ***** 
+    
+    // Fetch product data
+    useEffect(()=> {
+        fetch('https://fakestoreapi.com/products')
+        .then(response => response.json())
+        .then(data => setItems(data))
+    }, [])
+    
+    // Filter products based on title and category
+    useEffect(() => {
+        let filtered = items;
+        if (searchByTitle) {
+            filtered = filteredByTitle(filtered, searchByTitle);
+        }
+        if (searchByCategory.length) {
+            filtered = filteredByCategory(filtered, searchByCategory);
+        }
+        setFilteredItems(filtered);
+    }, [items, searchByTitle, searchByCategory]);
+    // Show product detail when a product is selected
+    useEffect( () => {
+        if (selectedProduct && Object.keys(selectedProduct).length > 0){
+            openDetail();
+        }
+    }, [selectedProduct])
+    // Show cart when products are added
+    useEffect( () => {
+        if (cartProducts && cartProducts.length > 0){
+            openCart();
+        }
+    }, [cartProducts])
+    
+     // Sync account and sign-out state with localStorage
+    useEffect(() => {
+        localStorage.setItem('account', JSON.stringify(account));
+        localStorage.setItem('sign-out', JSON.stringify(signOut));
+    }, [account, signOut]);
+    
+    // Update cart item count when products change
+        useEffect(() => {
+            setCartItemsCount(calculateTotalItems(cartProducts));
+        }, [cartProducts]);
+    
+    //Functions *****
+    // Open product detail
     const openDetail = () => {
         setIsVisibleDetail(true);
         setIsVisibleCart(false);
     };
-
-    
+    // Open cart
     const openCart = () => {
         setIsVisibleCart(true);
         setIsVisibleDetail(false);
-
     };
-
+    // Close both sidebars
     const closeSidebar = () => {
         setIsVisibleDetail(false);
         setIsVisibleCart(false);
         setSelectedProduct({});
-       
-
     };
-    
-   
-    //Obtener un conjunto único de categorías.
+    // Get unique product categories
     const getUniqueCategories = () => {
         const categories = items?.map(product => product.category);
         return [...new Set(categories)]; // Eliminar duplicados
     };
-    //Obtener solo los productos que coinciden exactamente con la categoría que se pasa como argumento (category).
+    // Filter by category
     const filteredByCategory = (items, category) => {
         return items?.filter(item => item.category === category
         )
     };
-    //Obtener solo los productos que coinciden el título que se pasa como argumento(searchByTitle) y se captura en el input (setSearchByTitle).
+    // Filter by title
     const filteredByTitle = (items, searchByTitle) => {
         return items?.filter(item => 
             item.title.toLowerCase().includes(searchByTitle.toLowerCase())
         )
     };
-
-    //Effects  
-
-    useEffect(()=> {
-
-        fetch('https://fakestoreapi.com/products')
-        // fetch(' https://api.escuelajs.co/api/v1/products')
-        .then(response => response.json())
-        // .then(response => console.log(response.json()))
-        .then(data => setItems(data))
-        
-    }, [])
-
-    //En este efecto se unifica el concepto de filtrado y se tiene en cuenta el filtrado múltiple 
-    //para que el estado filteredItems se modifica dependiendo del flitro que se tenga que aplicar
-    useEffect(() => {
-        let filtered = items;
-     
-        if (searchByTitle) {
-            filtered = filteredByTitle(filtered, searchByTitle);
-        }
-        
-        if (searchByCategory.length) {
-            filtered = filteredByCategory(filtered, searchByCategory);
-        }
-     
-        setFilteredItems(filtered);
-     }, [items, searchByTitle, searchByCategory]);
-    
-     useEffect( () => {
-        if (selectedProduct && Object.keys(selectedProduct).length > 0){
-            openDetail();
-        }
-      
-    }, [selectedProduct])
-
-    useEffect( () => {
-      
-       if (cartProducts && cartProducts.length > 0){
-            openCart();
-        }
-    }, [cartProducts])
-    
-    
-  // Sincronizo el estado de signOut y account con localStorage.
-  useEffect(() => {
-    localStorage.setItem('account', JSON.stringify(account));
-    localStorage.setItem('sign-out', JSON.stringify(signOut));
-  }, [account, signOut]);
-
-
-    // Reduce el array de productos en el carrito a un solo valor: el conteo total de productos y  
-    //Suma la cantidad del producto actual al total acumulado. El Valor inicial del total acumulado es 0
+    // Calculate total items in cart
     const calculateTotalItems = (cartProducts) => {
         return cartProducts.reduce((total, product) => total + product.quantity, 0);
     };
-
-    // Hook useEffect para actualizar el conteo total de productos en el carrito cuando cambie el carrito de productos
-    useEffect(() => {
-        setCartItemsCount(calculateTotalItems(cartProducts));
-    }, [cartProducts]);
-
-
-   
-    // Función para añadir un producto al carrito o actualizar la cantidad si el producto ya está en el carrito
-    const addProductToCart = (product) => {
+    // Add product to cart
+     const addProductToCart = (product) => {
         // Actualiza el estado de los productos en el carrito
         setCartProducts((prevCart) => {
             // Busca si el producto ya existe en el carrito
@@ -159,25 +142,23 @@ const CartProvider = ({children}) => {
         });
         
     };
-
-    
-    // Decrementar cantidad del producto
+    // Decrease product quantity in cart
     const decrementProductQuantity = (productId) => {
 
         setCartProducts(prevCart => 
             prevCart.map( p => 
                 p.id === productId && p.quantity > 1 ? {...p, quantity: p.quantity - 1}:p
             ).filter(p => p.quantity > 0)
-        );// Elimina productos con cantidad 0
+        );
 
     }
-
+    // Remove product from cart
     const removeProductFromCart = (productId) => {
         setCartProducts((prevCart) => {
             return prevCart.filter((item) => item.id !== productId);
-    });
+        });
     };
-
+    // Handle checkout and create new order
     const handleCheckout = () => {
         const date = new Date();
         const orderToAdd = {
@@ -190,11 +171,8 @@ const CartProvider = ({children}) => {
         setCartProducts([]);
         setCheckoutCompleted(true); 
         closeSidebar();
-       
-
     }
-
-
+    // Select product for detail view
     const handleProductSelection = (product) => {
         setSelectedProduct(product);
     };
@@ -240,13 +218,9 @@ const CartProvider = ({children}) => {
             view, 
             setView
         }}>
-
             {children}
-
         </CartContext.Provider>
-
     );
-
 }
 
 //prop validation

@@ -5,39 +5,38 @@ import { Layout } from '../../Components/Layout';
 import { OrdersCard } from '../../Components/OrdersCard';
 
 function MyOrders() {
-  const { order } = useContext(CartContext);
+    const { order } = useContext(CartContext);
 
-  if (!order || order.length === 0) {
+    if (!order || order.length === 0) {
+        return (
+            <Layout>
+            <h1>No orders available</h1>
+            </Layout>
+        );
+    }
+
     return (
-      <Layout>
-        <h1>No orders available</h1>
-      </Layout>
-    );
-  }
-
-  return (
     <Layout>
-      <h1>My Orders</h1>
-      {
+        <h1>My Orders</h1>
+        {
         order.map((ordr, index) => {
-    //    console.log('la orden es: ', ordr);  
 
-          return (
-            <Link key={index} to={`/my-orders/${index}`}>
+            return (
+                <Link key={index} to={`/my-orders/${index}`}>
 
-              <OrdersCard 
-                    index={index} 
-                    totalPrice={ordr.totalPrice} 
-                    totalProducts={ordr.totalProducts} 
-                    date={ordr.date }
-              />
-              
-            </Link>
-          );
+                    <OrdersCard 
+                        index={index} 
+                        totalPrice={ordr.totalPrice} 
+                        totalProducts={ordr.totalProducts} 
+                        date={ordr.date }
+                    />
+                    
+                </Link>
+            );
         })
-      }
+        }
     </Layout>
-  );
+    );
 }
 
-export  default MyOrders;
+export { MyOrders };

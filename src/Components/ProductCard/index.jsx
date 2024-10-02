@@ -1,7 +1,7 @@
 import {useContext} from 'react';
-import { CartContext } from '../../Context';
 import {PlusIcon, StarIcon as StarSolidIcon } from '@heroicons/react/24/solid';
 import {ShoppingCartIcon, StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
+import { CartContext } from '../../Context';
 
 const ProductCard = (product) => {
    

@@ -1,18 +1,17 @@
 import { useContext } from 'react';
-import { CartProvider, CartContext } from '../../Context';
 import { useRoutes, BrowserRouter } from 'react-router-dom';
-import { Home } from '../Home';
-import MyAccount from '../MyAccount';
-import MyOrder from '../MyOrder';
-import MyOrders from '../MyOrders';
-import SignIn from '../SignIn';
-import NotFound from '../NotFound';
+import { ToastContainer } from 'react-toastify';
+import { CartProvider, CartContext } from '../../Context';
 import { Navbar } from '../../Components/Navbar';
 import { Sidebar } from '../../Components/Sidebar';
-import { ToastContainer } from 'react-toastify';
+import { Home } from '../Home';
+import { MyAccount } from '../MyAccount';
+import { MyOrder } from '../MyOrder';
+import { MyOrders } from '../MyOrders';
+import { SignIn } from '../SignIn';
+import { NotFound } from '../NotFound';
 import 'react-toastify/dist/ReactToastify.css';
 
-import './App.css';
 
 const AppRoutes = () => {
     const { getUniqueCategories } = useContext(CartContext);

@@ -55,47 +55,47 @@ function SignUpForm() {
             <Form className='flex flex-col w-full max-w-96 px-6 py-10 rounded-lg border border-black gap-2'>
             <div className='flex flex-col gap-1'>
                     
-                <label htmlFor="name" className='font-light text-sm'>
+                <label htmlFor='name' className='font-light text-sm'>
                 Your Name:
                 </label>
                 <Field
-                type="text"
-                id="name"
-                name="name"
-                placeholder="John"
+                type='text'
+                id='name'
+                name='name'
+                placeholder='John'
                 className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
                 />
-                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name='name' component='div' className='text-red-500 text-sm' />
 
             </div>
             <div className='flex flex-col gap-1'>
-                <label htmlFor="email" className='font-light text-sm'>
+                <label htmlFor='email' className='font-light text-sm'>
                 Your Email:
                 </label>
                 <Field
-                type="email"
-                id="email"
-                name="email"
-                placeholder="hi@helloworld.com"
+                type='email'
+                id='email'
+                name='email'
+                placeholder='hi@helloworld.com'
                 className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
                 />
-                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name='email' component='div' className='text-red-500 text-sm' />
             </div>
             <div className='flex flex-col gap-1'>
-                <label htmlFor="password" className='font-light text-sm'>
+                <label htmlFor='password' className='font-light text-sm'>
                 Your password:
                 </label>
                 <Field
-                type="password"
-                id="password"
-                name="password"
-                placeholder="4 digits or more"
+                type='password'
+                id='password'
+                name='password'
+                placeholder='4 digits or more'
                 className='rounded-lg border border-black placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none p-2 px-4'
                 />
-                <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage name='password' component='div' className='text-red-500 text-sm' />
             </div>
             <button
-                type="submit"
+                type='submit'
                 className='text-white w-full rounded-lg py-3 mt-4 font-semibold text-md bg-green-500 hover:bg-green-500/70 text-md transition-colors duration-300 ease-in-out'
             >
                 Create account

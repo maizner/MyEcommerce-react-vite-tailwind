@@ -34,7 +34,7 @@ const ShoppingCart = () => {
     return (
         <>
             <div className='flex justify-between items-center m-2'>
-                <h2 className="text-lg font-medium p-2">Shopping Cart</h2>
+                <h2 className='text-lg font-medium p-2'>Shopping Cart</h2>
             </div>
             <div className='flex flex-col items-center justify-center text-center px-6 pt-2 pb-[120px] overflow-y-auto'> 
                 {

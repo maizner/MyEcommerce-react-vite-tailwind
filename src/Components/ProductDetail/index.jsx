@@ -57,7 +57,7 @@ const ProductDetail = () => {
 
         <>
             <div className='flex justify-between items-center m-2'>
-                <h2 className="text-lg font-medium p-2 ">Product Details</h2>
+                <h2 className='text-lg font-medium p-2 '>Product Details</h2>
             </div>
             <div className='px-6 pt-2 pb-4 '> 
                 <div className='flex flex-col items-start  '>
@@ -84,15 +84,15 @@ const ProductDetail = () => {
                     </div>
 
                     <div className='flex flex-col w-full mt-2'>
-                        <span className="text-2xl font-lg font-semibold pb-1" >
+                        <span className='text-2xl font-lg font-semibold pb-1' >
                             <span className='mr-[2px] text-lg leading-3'>$</span> {price} 
                         </span>
-                        <p className="text-md font-medium leading-6 pt-2 pb-1" >{title}</p>
+                        <p className='text-md font-medium leading-6 pt-2 pb-1' >{title}</p>
                     </div>
                 </div>
         
 
-                <p className="text-sm font-normal leading-5 text-gray-400"> 
+                <p className='text-sm font-normal leading-5 text-gray-400'> 
                     {description}
                 </p>
             </div>
